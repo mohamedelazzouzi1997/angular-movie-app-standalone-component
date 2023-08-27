@@ -1,0 +1,37 @@
+<div class="container mt-6">
+    <h1 class="font-[bolder] text-red-900">TOP RATED MOVIES</h1>
+
+    <div class="grid grid-cols-5 gap-4">
+        <ng-container *ngFor="let item of data">
+            <app-listing [item]="item" />
+        </ng-container>
+    </div>
+    <nav aria-label="Page navigation example" class="mt-6">
+        <ul class="list-style-none flex justify-center space-x-1">
+            <li>
+                <button [disabled]="page == 1" (click)="previousList(page - 1)" class="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+                    [ngClass]="{
+            'dark:text-neutral-600 dark:hover:bg-transparent dark:hover:text-neutral-600':
+              page == 1
+          }">
+          Previous
+        </button>
+            </li>
+            <li *ngFor="let i of repeatedArray; let index = index">
+                <button (click)="getTopRated(index + 1)" class="relative dark:bg-neutral-500 hover:cursor-pointer block rounded-lg bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+                    [ngClass]="{ 'dark:bg-neutral-700': index + 1 == page }">
+          {{ index + 1 }}
+        </button>
+            </li>
+            <li>
+                <button [disabled]="paginationLength == page" (click)="nextList(page + 1)" class="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+                    [ngClass]="{
+            'dark:text-neutral-600 dark:hover:bg-transparent dark:hover:text-neutral-600':
+              paginationLength == page
+          }">
+          Next
+        </button>
+            </li>
+        </ul>
+    </nav>
+</div>
