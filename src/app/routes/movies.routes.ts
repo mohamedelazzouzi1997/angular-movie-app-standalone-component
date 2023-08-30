@@ -36,4 +36,18 @@ export const MOVIES_ROUTES: Routes = [
         (c) => c.DetailComponent
       ),
   },
+  {
+    path: 'genre/:genre/:id',
+    loadComponent: () =>
+      import('../movies/genre/genre.component').then(
+        (c) => c.GenreComponent
+      ),
+  },
+  {
+    path: 'cast/:castName/:castId',
+    loadComponent: () =>
+      import('../movies/by-cast/by-cast.component').then(
+        (c) => c.ByCastComponent
+      ),
+  },
 ];

@@ -6,32 +6,21 @@
             <app-listing [item]="item" />
         </ng-container>
     </div>
-    <nav aria-label="Page navigation example" class="mt-6">
-        <ul class="list-style-none flex justify-center space-x-1">
-            <li>
-                <button [disabled]="page == 1" (click)="previousList(page - 1)" class="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
-                    [ngClass]="{
-            'dark:text-neutral-600 dark:hover:bg-transparent dark:hover:text-neutral-600':
-              page == 1
+    <nav class="mt-6 flex justify-between">
+
+        <button [disabled]="page == 1" (click)="previousList(page - 1)" class=" bg-neutral-700 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-700 px-3 py-1 rounded-sm" [ngClass]="{
+            'hover:bg-neutral-100 hover:text-neutral-700 text-neutral-100  shadow-inner':
+              page != 1
           }">
-          Previous
+         Previous
         </button>
-            </li>
-            <li *ngFor="let i of repeatedArray; let index = index">
-                <button (click)="getTopRated(index + 1)" class="relative dark:bg-neutral-500 hover:cursor-pointer block rounded-lg bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
-                    [ngClass]="{ 'dark:bg-neutral-700': index + 1 == page }">
-          {{ index + 1 }}
-        </button>
-            </li>
-            <li>
-                <button [disabled]="paginationLength == page" (click)="nextList(page + 1)" class="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
-                    [ngClass]="{
-            'dark:text-neutral-600 dark:hover:bg-transparent dark:hover:text-neutral-600':
-              paginationLength == page
+
+        <button [disabled]="paginationLength == page" (click)="nextList(page + 1)" class=" bg-neutral-700 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-700 px-3 py-1 rounded-sm " [ngClass]="{
+            'hover:bg-neutral-100 hover:text-neutral-700 text-neutral-100 shadow-inner':
+              paginationLength != page
           }">
           Next
         </button>
-            </li>
-        </ul>
+
     </nav>
 </div>

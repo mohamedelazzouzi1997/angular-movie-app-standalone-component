@@ -33,27 +33,112 @@
                 </svg>
                 <span class="text-white text-xs ml-1">{{ data?.vote_average?.toFixed(1) }}
                   <span class="fa fa-star text-yellow-500 text-xs"></span> | Votes : {{ data?.vote_count }}
-
                 </span>
             </div>
         </div>
         <div class="col-span-2">
             <div class="text-white font-sans space-x-2">
-                <div class="title-font text-4xl font-extrabold">{{ data.original_title }}</div>
+                <div class="title-font text-4xl font-extrabold">{{ data.original_title }} <span class="font-sans text-red-300 text-sm font-medium">Directed by </span> <span class="font-sans underline text-red-100 text-sm font-medium">{{ Director }}</span> </div>
                 <div class="  text-sm text-gray-200 font-semibold"> <span class="text-red-500 font-semibold italic text-lg">Release Date : </span> {{ data?.release_date | date:'fullDate' }}</div>
                 <div class="  text-sm text-gray-200 font-semibold"> <span class="text-red-500 font-semibold italic text-lg">Status : </span> {{ data?.status }}</div>
                 <div class="  text-sm text-gray-200 font-semibold"> <span class="text-red-500 font-semibold italic text-lg">Budget : </span> {{ data?.budget |currency }} </div>
                 <div class="  text-sm text-gray-200 font-semibold"> <span class="text-red-500 font-semibold italic text-lg">Revenue : </span> {{ data?.revenue |currency }} </div>
                 <div class="  text-sm text-gray-200 font-semibold"> <span class="text-red-500 font-semibold italic text-lg">Duration : </span> {{ data?.runtime }} Min</div>
                 <div class="  text-sm text-gray-200 font-semibold"> <span class="text-red-500 font-semibold italic text-lg">Genres : </span>
-                    <span *ngFor="let list of data?.genres" class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
-                      {{ list.name }}
-                            </span>
+                    <ng-container *ngFor="let list of data?.genres">
+                        <a routerLink="/movies/genre/{{ list.name }}/{{ list.id }}" class="px-3 mr-1 bg-neutral-700 text-xs py-1 hover:bg-neutral-800 text-white rounded-sm">
+                        {{ list.name }}
+                      </a>
+                    </ng-container>
                 </div>
                 <div class="  text-sm text-gray-200 font-semibold"> <span class="text-red-500 font-semibold italic text-lg">Overview : </span> {{ data?.overview }}
                 </div>
-                <button (click)="openTrailer()" class="px-4 py-1 mt-2 bg-red-600 rounded-md hover:bg-red-700">Watch Trailer</button>
+                <button (click)="openTrailer()" class="px-4 py-1 mt-2 bg-red-600 rounded-sm hover:bg-red-700">Watch Trailer</button>
+
+                <div class=" mt-4 mb-2 shadow-sm">
+                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'cast'}" type="button" (click)="showDetails('cast')" class="px-4 uppercase py-2 text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
+                    Cast
+                  </button>
+                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'crew'}" type="button" (click)="showDetails('crew')" class="px-4 uppercase py-2 text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
+                    Crew
+                  </button>
+                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'genre'}" type="button" (click)="showDetails('genre')" class="px-4 uppercase py-2 text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
+                    Genres
+                  </button>
+                </div>
+                <div id="casts" *ngIf="selectedDetails == 'cast'" class="space-y-1">
+                    <ng-container *ngFor="let cast of casts">
+                        <a routerLink="/movies/cast/{{ castNameSlug(cast.original_name) }}/{{ cast.id }}" class="inline-block px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm">{{ cast.original_name }}</a>
+                    </ng-container>
+                </div>
+                <div id="crew" *ngIf="selectedDetails == 'crew'" class="space-y-1">
+                    <div class="grid grid-cols-3 gap-4">
+                        <h5 *ngIf="directing.length" class=" overflow-hidden  text-sm uppercase italic text-red-100">Director<span class="ml-2">....................................................................................................................................................................................................</span></h5>
+                        <div *ngIf="directing.length" class="col-span-2">
+                            <div class="space-y-1">
+                                <ng-container *ngFor="let pers of directing">
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-red-100 rounded-sm">{{ pers.original_name }}</button>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <h5 *ngIf="production.length" class=" overflow-hidden  text-sm uppercase italic text-red-100">Producers<span class="ml-2">....................................................................................................................................................................................................</span></h5>
+                        <div *ngIf="production.length" class="col-span-2">
+                            <div class="space-y-1">
+                                <ng-container *ngFor="let pers of production">
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-red-100 rounded-sm">{{ pers.original_name }}</button>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <h5 *ngIf="writer.length" class=" overflow-hidden  text-sm uppercase italic text-red-100">Writers<span class="ml-2">....................................................................................................................................................................................................</span></h5>
+                        <div *ngIf="writer.length" class="col-span-2">
+                            <div class="space-y-1">
+                                <ng-container *ngFor="let pers of writer">
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-red-100 rounded-sm">{{ pers.original_name }}</button>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <h5 *ngIf="camera.length" class=" overflow-hidden  text-sm uppercase italic text-red-100">Cinematography<span class="ml-2">....................................................................................................................................................................................................</span></h5>
+                        <div *ngIf="camera.length" class="col-span-2">
+                            <div class="space-y-1">
+                                <ng-container *ngFor="let pers of camera">
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-red-100 rounded-sm">{{ pers.original_name }}</button>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <h5 *ngIf="sound.length" class=" overflow-hidden  text-sm uppercase italic text-red-100">sound<span class="ml-2">....................................................................................................................................................................................................</span></h5>
+                        <div *ngIf="sound.length" class="col-span-2">
+                            <div class="space-y-1">
+                                <ng-container *ngFor="let pers of sound">
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-red-100 rounded-sm">{{ pers.original_name }}</button>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <h5 *ngIf="makeUp.length" class=" overflow-hidden  text-sm uppercase italic text-red-100">MakeUp<span class="ml-2">....................................................................................................................................................................................................</span></h5>
+                        <div *ngIf="makeUp.length" class="col-span-2">
+                            <div class="space-y-1">
+                                <ng-container *ngFor="let pers of makeUp">
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-red-100 rounded-sm">{{ pers.original_name }}</button>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="genre" *ngIf="selectedDetails == 'genre'" class="space-y-1">
+                    <div class="grid grid-cols-3 gap-4">
+                        <h5 class=" overflow-hidden  text-sm uppercase italic text-red-100">Genres<span class="ml-2">....................................................................................................................................................................................................</span></h5>
+                        <div class=" col-span-2">
+                            <div class="space-y-1">
+                                <ng-container *ngFor="let list of data?.genres">
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-red-100 rounded-sm">{{  list.name }}</button>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>

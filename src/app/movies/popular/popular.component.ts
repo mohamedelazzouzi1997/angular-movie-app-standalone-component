@@ -13,17 +13,14 @@ import { ListingComponent } from 'src/app/components/listing/listing.component';
 })
 export class PopularComponent {
   data: any = [];
-
   page: number = 1;
-  repeatedArray = Array.from({ length: 9 }, (_, index) => index + 1);
   paginationLength: any;
-  newArray: any = [];
 
   constructor(
     private movieService: MoviesService,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getPopular(this.page);
