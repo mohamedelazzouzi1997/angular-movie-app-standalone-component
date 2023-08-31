@@ -18,12 +18,14 @@ export class PostersModalComponent {
   imagesPosters: any = []
   responsiveOptions: any[] | undefined;
   imageUrlPoster = 'https://image.tmdb.org/t/p/w780';
+  imageUrlBackDrop = 'https://image.tmdb.org/t/p/w1280';
+
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
   ngOnInit() {
-    this.imagesPosters = this.data
-    console.log('poster', this.data.length)
+    this.imagesPosters = this.data.data
+
     this.responsiveOptions = [
       {
         breakpoint: '1024px',

@@ -6,7 +6,7 @@
 </div>
 <div class="container ">
 
-    <div class="grid grid-cols-3">
+    <div class="grid grid-cols-4">
         <div class="px-8 pt-[10px]">
             <img class="border w-full  mx-auto" [src]="imageUrlPoster + data?.poster_path" alt="">
             <div class="flex mt-1 justify-center">
@@ -49,7 +49,7 @@
 
             </div>
         </div>
-        <div class="col-span-2">
+        <div class="col-span-3">
             <div class="text-white font-sans space-x-2">
                 <div class="title-font text-4xl font-extrabold">{{ data.original_title }} </div>
                 <div class="  text-sm text-gray-200 font-semibold">
@@ -80,10 +80,10 @@
                     <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'details'}" type="button" (click)="showDetails('details')" class="px-4 uppercase py-2 text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
                     Details
                   </button>
-                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'images'}" type="button" (click)="showDetails('images');getMovieImages()" class="px-4 uppercase py-2 text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
+                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'images'}" type="button" (click)="showDetails('images')" class="px-4 uppercase py-2 text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
                     Images
                   </button>
-                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'videos'}" type="button" (click)="showDetails('videos')" class="px-4 uppercase py-2 text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
+                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'videos'}" type="button" (click)="showDetails('videos');getMovieVideos()" class="px-4 uppercase py-2 text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
                     Videos
                   </button>
                 </div>
@@ -189,9 +189,25 @@
                     </div>
                 </div>
                 <div id="images" *ngIf="selectedDetails == 'images'" class="space-y-1">
-                    <div class="">
+                    <div class="grid grid-cols-3 gap-4 text-xs">
+                        <h5 class=" overflow-hidden  text-sm uppercase italic  text-white">POSTERS<span class=" ml-2"><hr></span></h5>
 
+                        <div class=" col-span-2">
+                            <div class="space-y-1">
+                                <button (click)="getMovieImages('posters')" class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm">POSTERS</button>
+                            </div>
+                        </div>
 
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 text-xs">
+                        <h5 class=" overflow-hidden  text-sm uppercase italic  text-white">BACKDROPS<span class=" ml-2"><hr></span></h5>
+
+                        <div class=" col-span-2">
+                            <div class="space-y-1">
+                                <button (click)="getMovieImages('backdrops')" class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm">BACKDROPS</button>
+                            </div>
+                        </div>
 
                     </div>
                 </div>

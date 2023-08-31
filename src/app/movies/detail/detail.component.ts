@@ -4,14 +4,15 @@ import { MoviesService } from 'src/app/services/movies.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TrailerModalComponent } from './trailer-modal/trailer-modal.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PostersModalComponent } from '../posters-modal/posters-modal.component';
+import { ModalVideosComponent } from '../modal-videos/modal-videos.component';
 
 
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, MatButtonToggleModule, RouterLink, PostersModalComponent],
+  imports: [CommonModule, MatDialogModule, MatButtonToggleModule, RouterLink, PostersModalComponent, ModalVideosComponent],
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
 })
@@ -34,6 +35,8 @@ export class DetailComponent {
   providers: any = []
   imagesPosters: any = []
   ImagesBackdrops: any = []
+  videos: any = []
+  similarMovies: any = []
   //department array
   currentImageUrl: string = '';
 
@@ -41,7 +44,9 @@ export class DetailComponent {
 
 
   selectedDetails: string = 'cast'
-  constructor(private movieService: MoviesService, private dialog: MatDialog) { }
+  constructor(private movieService: MoviesService, private dialog: MatDialog) {
+
+  }
 
 
   @Input('id') movieId!: number;
@@ -49,8 +54,7 @@ export class DetailComponent {
     this.getMovieDetails();
     this.getCredits()
     this.getMovieProviders()
-
-
+    this.getSimilareMovies()
   }
 
 
@@ -63,16 +67,41 @@ export class DetailComponent {
     });
   }
 
-  getMovieImages() {
+  getMovieVideos() {
+    this.movieService.getMovieVideos(this.movieId).subscribe({
+      next: (res) => {
+        this.videos = res.results
+        this.dialog.open(ModalVideosComponent, {
+          data: this.videos,
+        });
+      },
+      error: (err) => console.error,
+    });
+  }
+  getSimilareMovies() {
+    this.movieService.getSimilareMovies(this.movieId).subscribe({
+      next: (res) => {
+        console.log('res similar', res)
+      },
+      error: (err) => console.error,
+    });
+  }
+  getMovieImages(target: string = 'posters') {
     this.movieService.getMovieImages(this.movieId).subscribe({
       next: (res) => {
         // this.imagesPosters = res.posters.map((item: { file_path: any; }) => { return item.file_path });
-        this.imagesPosters = res.posters;
+
+        this.imagesPosters = res.posters
+        this.ImagesBackdrops = res.backdrops
+
+        let data = target == 'posters' ? this.imagesPosters : this.ImagesBackdrops
         this.dialog.open(PostersModalComponent, {
-          data: this.imagesPosters,
-          width: '300px'
+          data: {
+            data: data,
+            target: target
+          },
+          width: target == 'posters' ? '300px' : 'auto',
         });
-        this.ImagesBackdrops = res.backdrops.map((item: { file_path: any; }) => { return item.file_path });
       },
       error: (err) => console.error,
     });

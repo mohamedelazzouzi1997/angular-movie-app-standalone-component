@@ -1,0 +1,9 @@
+<div>
+    <div class="card md:flex md:justify-content-center">
+        <p-galleria [value]="videos" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
+            <ng-template pTemplate="item" let-item>
+                <youtube-player videoId="{{  item.key}}"></youtube-player>
+            </ng-template>
+        </p-galleria>
+    </div>
+</div>

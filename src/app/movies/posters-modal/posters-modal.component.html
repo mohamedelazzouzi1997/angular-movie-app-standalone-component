@@ -1,7 +1,7 @@
 <div *ngIf="imagesPosters.length" class=" bg-neutral-700 border">
     <p-galleria [value]="imagesPosters" [indicatorsPosition]="'right'" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
         <ng-template pTemplate="item" let-item>
-            <img [src]="imageUrlPoster + item?.file_path" class="md:w-[350px] sm:h-[200px] sm:w-[125px] md:h-[450px] " />
+            <img [src]="(data.target == 'poster' ? imageUrlPoster : imageUrlBackDrop) + item?.file_path" class="" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
             <div class="grid grid-nogutter justify-content-center">
