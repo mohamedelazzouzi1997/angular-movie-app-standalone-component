@@ -89,4 +89,21 @@ export class MoviesService {
     };
     return this.http.get(url, options);
   }
+
+  getMovieProviders(id: number): Observable<any> {
+    const url = `${this.baseUrl}/movie/${id}/watch/providers`;
+    const options = {
+      params: new HttpParams().set('api_key', this.apiKey),
+    };
+    return this.http.get(url, options);
+  }
+
+  getMovieImages(id: number): Observable<any> {
+    const url = `${this.baseUrl}/movie/${id}/images`;
+    const options = {
+      params: new HttpParams().set('api_key', this.apiKey),
+    };
+    return this.http.get(url, options);
+  }
+
 }

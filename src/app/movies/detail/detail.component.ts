@@ -5,17 +5,20 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TrailerModalComponent } from './trailer-modal/trailer-modal.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { RouterLink } from '@angular/router';
+import { PostersModalComponent } from '../posters-modal/posters-modal.component';
+
 
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, MatButtonToggleModule, RouterLink],
+  imports: [CommonModule, MatDialogModule, MatButtonToggleModule, RouterLink, PostersModalComponent],
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent {
-  imageUrlPoster = 'https://image.tmdb.org/t/p/w185';
-  imageUrlBg = 'https://image.tmdb.org/t/p/w780';
+  imageUrlPoster = 'https://image.tmdb.org/t/p/w780';
+  imageUrlBg = 'https://image.tmdb.org/t/p/w1280';
+  imgProviderUrl = 'https://image.tmdb.org/t/p/w92';
   Director: string = ''
   data: any = [];
   casts: any = []
@@ -28,7 +31,13 @@ export class DetailComponent {
   makeUp: any = [];
   sound: any = [];
   directing: any = []
+  providers: any = []
+  imagesPosters: any = []
+  ImagesBackdrops: any = []
   //department array
+  currentImageUrl: string = '';
+
+
 
 
   selectedDetails: string = 'cast'
@@ -39,7 +48,12 @@ export class DetailComponent {
   ngOnInit(): void {
     this.getMovieDetails();
     this.getCredits()
+    this.getMovieProviders()
+
+
   }
+
+
   getMovieDetails() {
     this.movieService.getMovieDetails(this.movieId).subscribe({
       next: (res) => {
@@ -49,14 +63,42 @@ export class DetailComponent {
     });
   }
 
+  getMovieImages() {
+    this.movieService.getMovieImages(this.movieId).subscribe({
+      next: (res) => {
+        // this.imagesPosters = res.posters.map((item: { file_path: any; }) => { return item.file_path });
+        this.imagesPosters = res.posters;
+        this.dialog.open(PostersModalComponent, {
+          data: this.imagesPosters,
+          width: '300px'
+        });
+        this.ImagesBackdrops = res.backdrops.map((item: { file_path: any; }) => { return item.file_path });
+      },
+      error: (err) => console.error,
+    });
+  }
+
+  getMovieProviders() {
+    this.movieService.getMovieProviders(this.movieId).subscribe({
+      next: (res) => {
+        if (Object.keys(res.results).length) {
+          if (res.results.US)
+            this.providers = res.results.US;
+          else if (res.results.CA)
+            this.providers = res.results.CA;
+          else {
+            this.providers = Object.values(res.results)[0];
+          }
+        }
+      },
+      error: (err) => console.error,
+    });
+  }
 
 
   showDetails(target: string) {
     this.selectedDetails = target
-
   }
-
-
 
   getCredits() {
     this.movieService.getCredits(this.movieId).subscribe({
@@ -113,9 +155,4 @@ export class DetailComponent {
     });
   }
 
-  get getYear() {
-    const date = new Date(this.data.release_date);
-    const year = date.getFullYear();
-    return year;
-  }
 }

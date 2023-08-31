@@ -4,11 +4,11 @@ import { importProvidersFrom } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { AppRoutes } from './app/app-routes';
 import { HttpClientModule } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideAnimations, BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(BrowserModule, HttpClientModule),
+    importProvidersFrom(BrowserModule, HttpClientModule, BrowserAnimationsModule),
     provideRouter(AppRoutes, withComponentInputBinding()),
     provideAnimations(),
   ],
