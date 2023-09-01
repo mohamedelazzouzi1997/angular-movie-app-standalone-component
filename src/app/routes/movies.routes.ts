@@ -50,4 +50,12 @@ export const MOVIES_ROUTES: Routes = [
         (c) => c.ByCastComponent
       ),
   },
+
+  {
+    path: 'similare/:movie/:id',
+    loadComponent: () =>
+      import('../movies/similare/similare.component').then(
+        (c) => c.SimilareComponent
+      ),
+  },
 ];

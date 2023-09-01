@@ -115,10 +115,10 @@ export class MoviesService {
   }
 
 
-  getSimilareMovies(id: number): Observable<any> {
+  getSimilareMovies(id: number, page: any = 1): Observable<any> {
     const url = `${this.baseUrl}/movie/${id}/similar`;
     const options = {
-      params: new HttpParams().set('api_key', this.apiKey),
+      params: new HttpParams().set('api_key', this.apiKey).set('page', page),
     };
     return this.http.get(url, options);
   }

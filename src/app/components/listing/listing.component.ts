@@ -11,5 +11,6 @@ import { RouterLink } from '@angular/router';
 })
 export class ListingComponent {
   @Input() item: any;
+  @Input() isListing: boolean = true;
   imageUrlPoster = 'https://image.tmdb.org/t/p/w500';
 }

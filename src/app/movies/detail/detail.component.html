@@ -212,3 +212,15 @@
                     </div>
                 </div>
             </div>
+            <div class="border-b border-red-500 text-white py-1 ml-2 mt-6">
+                <span class="uppercase">Similar MOVIES</span>
+                <span class="uppercase float-right underline"><a routerLink="/movies/similare/{{ castNameSlug(data.original_title) }}/{{ data.id }}">SHOW ALL</a></span>
+            </div>
+            <div class="grid grid-cols-10 gap-2 ml-2 mt-4">
+                <ng-container *ngFor="let item of similarMovies">
+                    <app-listing [isListing]="false" *ngIf="item.poster_path" [item]="item" />
+                </ng-container>
+
+            </div>
+        </div>
+    </div>

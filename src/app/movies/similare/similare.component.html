@@ -1,0 +1,25 @@
+<div class="container mt-6">
+    <h1 class="font-[bolder] text-neutral-500">All Movies Similar To <span class="text-red-900">{{ movie }}</span> ({{ totalGenraMovie }}) </h1>
+    <div class="grid grid-cols-5 gap-4">
+        <ng-container *ngFor="let item of data">
+            <app-listing *ngIf=" item.poster_path" [item]="item" />
+        </ng-container>
+    </div>
+    <nav class="mt-6 flex justify-between">
+
+        <button [disabled]="page == 1" (click)="previousList(page - 1)" class=" bg-neutral-700 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-700 px-3 py-1 rounded-sm" [ngClass]="{
+            'hover:bg-neutral-100 hover:text-neutral-700 text-neutral-100  shadow-inner':
+              page != 1
+          }">
+         Previous
+        </button>
+
+        <button [disabled]="paginationLength == page" (click)="nextList(page + 1)" class=" bg-neutral-700 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-700 px-3 py-1 rounded-sm " [ngClass]="{
+            'hover:bg-neutral-100 hover:text-neutral-700 text-neutral-100 shadow-inner':
+              paginationLength != page
+          }">
+          Next
+        </button>
+
+    </nav>
+</div>

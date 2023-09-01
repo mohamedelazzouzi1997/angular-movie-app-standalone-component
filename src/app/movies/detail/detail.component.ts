@@ -4,15 +4,17 @@ import { MoviesService } from 'src/app/services/movies.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TrailerModalComponent } from './trailer-modal/trailer-modal.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { PostersModalComponent } from '../posters-modal/posters-modal.component';
 import { ModalVideosComponent } from '../modal-videos/modal-videos.component';
+import { ListingComponent } from 'src/app/components/listing/listing.component';
+import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, MatButtonToggleModule, RouterLink, PostersModalComponent, ModalVideosComponent],
+  imports: [CommonModule, MatDialogModule, MatButtonToggleModule, RouterLink, PostersModalComponent, ModalVideosComponent, ListingComponent],
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
 })
@@ -44,7 +46,7 @@ export class DetailComponent {
 
 
   selectedDetails: string = 'cast'
-  constructor(private movieService: MoviesService, private dialog: MatDialog) {
+  constructor(private movieService: MoviesService, private dialog: MatDialog, private router: Router) {
 
   }
 
@@ -62,6 +64,7 @@ export class DetailComponent {
     this.movieService.getMovieDetails(this.movieId).subscribe({
       next: (res) => {
         this.data = res;
+        console.log('res', res)
       },
       error: (err) => console.error,
     });
@@ -81,7 +84,9 @@ export class DetailComponent {
   getSimilareMovies() {
     this.movieService.getSimilareMovies(this.movieId).subscribe({
       next: (res) => {
-        console.log('res similar', res)
+        this.similarMovies = res.results.filter((item: { poster_path: any }) => {
+          return item.poster_path;
+        }).slice(0, 10)
       },
       error: (err) => console.error,
     });

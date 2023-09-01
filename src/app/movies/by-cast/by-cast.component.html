@@ -6,7 +6,7 @@
         </div>
         <div class=" col-span-3 grid grid-cols-6 gap-3">
             <ng-container *ngFor="let item of data">
-                <app-listing *ngIf="item.poster_path" [item]="item" />
+                <app-listing [isListing]="false" *ngIf="item.poster_path" [item]="item" />
             </ng-container>
         </div>
 

@@ -27,7 +27,6 @@
     ></span>
     </div>
     <a routerLink="/movies/movie/{{ item.id }}" class="group-hover:z-20">
-
-        <img [src]="imageUrlPoster + item.poster_path" class="w-full h-full rounded-md " alt="" />
+        <img [src]="imageUrlPoster + item.poster_path" class="w-full rounded-md " [ngClass]="{'h-[324px]': isListing,'h-full': !isListing}" alt="" />
     </a>
 </div>
