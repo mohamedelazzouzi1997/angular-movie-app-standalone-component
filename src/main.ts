@@ -4,12 +4,11 @@ import { importProvidersFrom } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { AppRoutes } from './app/app-routes';
 import { HttpClientModule } from '@angular/common/http';
-import { provideAnimations, BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CookieService } from 'ngx-cookie-service';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(BrowserModule, HttpClientModule, BrowserAnimationsModule),
+    importProvidersFrom(BrowserModule, HttpClientModule, CookieService),
     provideRouter(AppRoutes, withComponentInputBinding()),
-    provideAnimations(),
   ],
 }).catch(console.error);

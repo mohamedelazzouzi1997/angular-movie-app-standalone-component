@@ -10,4 +10,7 @@ import { RightSideBarComponent } from './components/right-side-bar/right-side-ba
   standalone: true,
   imports: [RouterOutlet, SideBarComponent, RightSideBarComponent],
 })
-export class AppComponent { }
+export class AppComponent {
+
+
+}
