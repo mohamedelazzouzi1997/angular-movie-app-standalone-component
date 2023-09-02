@@ -16,6 +16,12 @@
 <body class="font-montserrat text-sm bg-white dark:bg-zinc-900 mat-typography">
     <app-root />
     <script>
+        window.va = window.va || function() {
+            (window.vaq = window.vaq || []).push(arguments);
+        };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script>
         // Burger menus
         document.addEventListener('DOMContentLoaded', function() {
             // open
