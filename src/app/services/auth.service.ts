@@ -1,3 +1,4 @@
+import { CookieService } from 'ngx-cookie-service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -12,7 +13,7 @@ export class AuthService {
   private baseUrl = environment.baseUrl;
   private domain = environment.domain;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   requestToken(): Observable<any> {
     const url = `${this.baseUrl}/authentication/token/new`;
@@ -32,12 +33,8 @@ export class AuthService {
     }, options);
   }
 
-  getUserProfile(session_id: any): Observable<any> {
-    const url = `${this.baseUrl}/account`;
-    const options = {
-      params: new HttpParams().set('api_key', this.apiKey).set('session_id', session_id),
-    };
-    return this.http.get(url, options);
+  isAuthenticated() {
+    return this.cookieService.check('TMDB-session-id')
   }
 
 }

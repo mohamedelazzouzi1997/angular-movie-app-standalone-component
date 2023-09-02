@@ -1,5 +1,8 @@
 <div class="relative group hover:scale-[1.02] duration-200  flex justify-center ">
-    <div class="absolute top-0 right-0 left-0 rounded-md bottom-0 bg-black hidden md:block  hover:opacity-0 opacity-60 z-10 "></div>
+    <span *ngIf="isFavourit(item.id)" class="bg-neutral-400">
+        <i class="fa-solid fa-heart text-red-500 absolute top-[-13px] right-[-10px] text-xl z-30"></i>
+    </span>
+    <div *ngIf="isWatched(item.id)" class="absolute top-0 right-0 left-0 rounded-md bottom-0 bg-black hidden md:block  hover:opacity-0 opacity-80 border z-10 "></div>
     <div class="flex mt-1 absolute top-0 left-2 z-10 md:group-hover:hidden p-1">
         <div class="absolute top-0 right-0 left-0 rounded-md bottom-0 bg-black  hover:opacity-0 opacity-60 z-10 "></div>
 
@@ -29,6 +32,6 @@
     ></span>
     </div>
     <a routerLink="/movies/movie/{{ item.id }}" class="group-hover:z-20">
-        <img [src]="imageUrlPoster + item.poster_path" class="w-full h-full min-h-full rounded-md " [style]="height" alt="" />
+        <img [src]="imageUrlPoster + item.poster_path" class="w-full h-full min-h-full rounded-md " [ngClass]="height" alt="" />
     </a>
 </div>

@@ -1,3 +1,4 @@
+import { CookieService } from 'ngx-cookie-service';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -10,7 +11,11 @@ export class MoviesService {
   private apiKey = environment.apiKey;
   private baseUrl = environment.baseUrl;
 
-  constructor(private http: HttpClient) { }
+  session_id: any
+  constructor(private http: HttpClient, private cookieService: CookieService) {
+    this.session_id = this.cookieService.get('TMDB-session-id')
+  }
+
 
   getMovieLists(page: number): Observable<any> {
     const url = `${this.baseUrl}/movie/now_playing`;
@@ -122,4 +127,62 @@ export class MoviesService {
     };
     return this.http.get(url, options);
   }
+
+  addToWatchList(movie_id: number, account_id: number): Observable<any> {
+    const url = `${this.baseUrl}/account/${account_id}/watchlist`;
+    const options = {
+      params: new HttpParams().set('api_key', this.apiKey).set('session_id', this.session_id),
+    };
+    return this.http.post(url, {
+      "media_type": "movie",
+      "media_id": movie_id,
+      "watchlist": true
+    }, options);
+  }
+
+  removeFromWatchList(movie_id: number, account_id: number): Observable<any> {
+    const url = `${this.baseUrl}/account/${account_id}/watchlist`;
+    const options = {
+      params: new HttpParams().set('api_key', this.apiKey).set('session_id', this.session_id),
+    };
+    return this.http.post(url, {
+      "media_type": "movie",
+      "media_id": movie_id,
+      "watchlist": false
+    }, options);
+  }
+
+  movieAccountStatus(movie_id: number): Observable<any> {
+    const url = `${this.baseUrl}/movie/${movie_id}/account_states`;
+    const options = {
+      params: new HttpParams().set('api_key', this.apiKey).set('session_id', this.session_id),
+    };
+    return this.http.get(url, options);
+  }
+
+  addToFavouritList(movie_id: number, account_id: number): Observable<any> {
+    const url = `${this.baseUrl}/account/${account_id}/favorite`;
+    const options = {
+      params: new HttpParams().set('api_key', this.apiKey).set('session_id', this.session_id),
+    };
+    return this.http.post(url, {
+      "media_type": "movie",
+      "media_id": movie_id,
+      "favorite": true
+    }, options);
+  }
+
+
+  removeFromFavouritList(movie_id: number, account_id: number): Observable<any> {
+    const url = `${this.baseUrl}/account/${account_id}/favorite`;
+    const options = {
+      params: new HttpParams().set('api_key', this.apiKey).set('session_id', this.session_id),
+    };
+    return this.http.post(url, {
+      "media_type": "movie",
+      "media_id": movie_id,
+      "favorite": false
+    }, options);
+  }
+
 }

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -17,7 +18,7 @@ export class SideBarComponent {
   isSessionExist: boolean = false
   session_id: any
   user: any
-  constructor(private auth: AuthService, private cookieService: CookieService) {
+  constructor(private auth: AuthService, private cookieService: CookieService, private userService: UserService) {
 
   }
 
@@ -25,8 +26,9 @@ export class SideBarComponent {
   ngOnInit(): void {
     this.isSessionExist = this.cookieService.check('TMDB-session-id')
     this.session_id = this.cookieService.get('TMDB-session-id')
-    if (this.isSessionExist)
+    if (this.isSessionExist) {
       this.profile()
+    }
   }
 
 
@@ -56,14 +58,26 @@ export class SideBarComponent {
       })
     }
   }
-
+  // watcheList() {
+  //   this.userService.getUserWatchList(this.user.id).subscribe({
+  //     next: res => {
+  //       console.log('watch list ', res)
+  //       this.userService.setUserWatchList(res.results)
+  //     },
+  //     error: err => console.error
+  //   })
+  // }
   profile() {
-    this.auth.getUserProfile(this.session_id).subscribe({
+    this.userService.getUserProfile(this.session_id).subscribe({
       next: res => {
         this.user = res
-        console.log('user', res)
+        this.userService.setUserInfo(this.user);
       },
-      error: err => console.error
+      error: err => {
+        console.error
+      },
+
+
     })
   }
 }

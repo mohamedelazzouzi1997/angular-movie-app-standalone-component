@@ -1,3 +1,5 @@
+import { AuthService } from 'src/app/services/auth.service';
+import { CookieService } from 'ngx-cookie-service';
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MoviesService } from 'src/app/services/movies.service';
@@ -8,7 +10,8 @@ import { RouterLink } from '@angular/router';
 import { PostersModalComponent } from '../posters-modal/posters-modal.component';
 import { ModalVideosComponent } from '../modal-videos/modal-videos.component';
 import { ListingComponent } from 'src/app/components/listing/listing.component';
-import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -41,22 +44,127 @@ export class DetailComponent {
   similarMovies: any = []
   //department array
   currentImageUrl: string = '';
-
-
-
-
+  userInfo: any
   selectedDetails: string = 'cast'
-  constructor(private movieService: MoviesService, private dialog: MatDialog, private router: Router) {
+  isSessionExist: any
+  movieStatus: any
+  movieIds: any = []
+  constructor(
+    private movieService: MoviesService,
+    private AuthService: AuthService,
+    private dialog: MatDialog,
+    private userService: UserService,
+    private _toastr: ToastrService,
+    private cookieService: CookieService) {
 
   }
   @Input('id') movieId!: number;
 
   ngOnInit(): void {
+    this.userInfo = this.userService.getUserInfo();
+    this.isSessionExist = this.cookieService.check('TMDB-session-id')
+
     this.getMovieDetails();
     this.getCredits()
     this.getMovieProviders()
     this.getSimilareMovies()
-    console.log('this movieid', this.movieId)
+
+    if (this.isAuthenticated) {
+      this.movieAccountStatus()
+    }
+
+  }
+
+  addToWatch() {
+    const movieIds: any[] = this.getIdsFromLocalStorage()
+    if (!movieIds.includes(this.movieId)) {
+      localStorage.setItem('movieIds', JSON.stringify([...movieIds, this.movieId]));
+      this._toastr.success(`‘${this.data.original_title}’ was added to your seen movies list.`)
+      this.isWatched
+    }
+  }
+
+  removeFromWatch() {
+    let watchedmovieIds: any[] = this.getIdsFromLocalStorage()
+    if (watchedmovieIds.includes(this.movieId)) {
+      watchedmovieIds = watchedmovieIds.filter(item => item != this.movieId)
+      localStorage.setItem('movieIds', JSON.stringify([...watchedmovieIds]));
+      this._toastr.info(`‘${this.data.original_title}’  was removed from your seen movies list.`)
+
+      this.isWatched
+    }
+  }
+
+  addToFavourit() {
+    const favouritmovieIds: any[] = this.getFavouritMovieIds()
+    if (!favouritmovieIds.includes(this.movieId)) {
+      localStorage.setItem('favoutiteMovieIds', JSON.stringify([...favouritmovieIds, this.movieId]));
+    }
+  }
+
+  removeFromFavourit() {
+    let favouritmovieIds: any[] = this.getFavouritMovieIds()
+    if (favouritmovieIds.includes(this.movieId)) {
+      favouritmovieIds = favouritmovieIds.filter(item => item != this.movieId)
+      localStorage.setItem('favoutiteMovieIds', JSON.stringify([...favouritmovieIds]));
+    }
+  }
+
+  addToFavouritList() {
+    if (!this.userInfo) //get user if undefined
+      this.userInfo = this.userService.getUserInfo()
+    if (!this.movieStatus.favorite) {
+      this.movieService.addToFavouritList(this.movieId, this.userInfo.id).subscribe({
+        next: (res) => {
+          this.movieAccountStatus()
+          this.addToFavourit()
+          this._toastr.success(`‘${this.data.original_title}’ was added to your favorite List.`)
+
+        },
+        error: (err) => console.error,
+      });
+    } else {
+      this.movieService.removeFromFavouritList(this.movieId, this.userInfo.id).subscribe({
+        next: (res) => {
+          this.movieAccountStatus()
+          this.removeFromFavourit()
+          this._toastr.info(`‘${this.data.original_title}’ was removed from your favorite List.`)
+        },
+        error: (err) => console.error,
+      });
+    }
+
+  }
+
+  addToWatchList() {
+    if (!this.userInfo) //get user if undefined
+      this.userInfo = this.userService.getUserInfo()
+    if (!this.movieStatus.watchlist) {
+      this.movieService.addToWatchList(this.movieId, this.userInfo.id).subscribe({
+        next: (res) => {
+          this._toastr.success(`‘${this.data.original_title}’ was added to your watchlist.`)
+          this.movieAccountStatus()
+        },
+        error: (err) => console.error,
+      });
+    } else {
+      this.movieService.removeFromWatchList(this.movieId, this.userInfo.id).subscribe({
+        next: (res) => {
+          this._toastr.info(`‘${this.data.original_title}’ was removed from your watchlist.`)
+          this.movieAccountStatus()
+        },
+        error: (err) => console.error,
+      });
+    }
+  }
+
+  movieAccountStatus() {
+    this.movieService.movieAccountStatus(this.movieId).subscribe({
+      next: (res) => {
+        this.movieStatus = res
+      },
+      error: (err) => console.error,
+    });
   }
 
   changeMovieId(id: number) {
@@ -193,4 +301,22 @@ export class DetailComponent {
     });
   }
 
+  get isAuthenticated(): boolean {
+    return this.AuthService.isAuthenticated()
+  }
+
+  get isWatched(): boolean {
+    const movieIds: any[] = this.getIdsFromLocalStorage()
+    return movieIds.includes(this.movieId)
+  }
+
+  getIdsFromLocalStorage(): any {
+    const storedIds: any = localStorage.getItem('movieIds');
+    return storedIds ? JSON.parse(storedIds) : []
+  }
+
+  getFavouritMovieIds(): any {
+    const storedIds: any = localStorage.getItem('favoutiteMovieIds');
+    return storedIds ? JSON.parse(storedIds) : []
+  }
 }

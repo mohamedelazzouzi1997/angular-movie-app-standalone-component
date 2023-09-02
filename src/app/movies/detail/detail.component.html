@@ -6,219 +6,253 @@
 </div>
 <div class="container ">
 
-    <div class="grid grid-cols-1 md:grid-cols-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 relative">
         <div class="md:px-8 pt-[10px]">
-            <img class="border w-full  mx-auto" [src]="imageUrlPoster + data?.poster_path" alt="">
-            <div class="flex mt-1 justify-center">
-                <svg class="w-8 h-4 z-20 opacity-100" xmlns="http://www.w3.org/2000/svg" width="64" height="32" viewBox="0 0 64 32" version="1.1">
-                  <g fill="#F5C518">
-                    <rect x="0" y="0" width="100%" height="100%" rx="4"></rect>
+            <div *ngIf="isAuthenticated" class="flex-col space-y-2 justify-end items-center absolute top-[-110px] md:top-[-40px] z-30 right-0 ">
+
+                <div class="text-center flex justify-end space-x-2 text-white items-center ">
+                    <span>
+                  Watch
+                </span>
+                    <button (click)="isWatched ? removeFromWatch() : addToWatch()" class=" rounded-sm text-white border hover:bg-green-500 text-xs w-[30px] h-[30px] " [ngClass]="{'bg-green-500': isWatched}"><i class="fa-solid fa-eye "></i></button>
+                </div>
+                <div class="text-center flex justify-end space-x-2 text-white items-center ">
+                    <span>
+                        Like
+                    </span>
+                    <button (click)=" addToFavouritList()" class=" rounded-sm text-white border hover:bg-red-500 text-xs w-[30px] h-[30px] " [ngClass]="{ 'bg-red-500': movieStatus?.favorite} "><i class="fa-solid fa-heart "></i></button>
+                </div>
+                <div class="text-center flex justify-end space-x-2 text-white items-center ">
+                    <span>
+                        WatchList
+                    </span>
+                    <button (click)="addToWatchList() " class="rounded-sm text-white border hover:bg-blue-500 text-xs w-[30px] h-[30px] " [ngClass]="{ 'bg-blue-500': movieStatus?.watchlist} "><i class="fa-solid fa-clock "></i></button>
+                </div>
+            </div>
+            <img class="border w-full mx-auto " [src]="imageUrlPoster + data?.poster_path " alt=" ">
+            <div class="flex mt-1 justify-center ">
+                <svg class="w-8 h-4 z-20 opacity-100 " xmlns="http://www.w3.org/2000/svg " width="64 " height="32 " viewBox="0 0 64 32 " version="1.1 ">
+                  <g fill="#F5C518 ">
+                    <rect x="0 " y="0 " width="100% " height="100% " rx="4 "></rect>
                   </g>
                   <g
-                    transform="translate(8.000000, 7.000000)"
-                    fill="#000000"
-                    fill-rule="nonzero"
+                    transform="translate(8.000000, 7.000000) "
+                    fill="#000000 "
+                    fill-rule="nonzero "
                   >
-                    <polygon points="0 18 5 18 5 0 0 0"></polygon>
+                    <polygon points="0 18 5 18 5 0 0 0 "></polygon>
                     <path
-                      d="M15.6725178,0 L14.5534833,8.40846934 L13.8582008,3.83502426 C13.65661,2.37009263 13.4632474,1.09175121 13.278113,0 L7,0 L7,18 L11.2416347,18 L11.2580911,6.11380679 L13.0436094,18 L16.0633571,18 L17.7583653,5.8517865 L17.7707076,18 L22,18 L22,0 L15.6725178,0 Z"
+                      d="M15.6725178,0 L14.5534833,8.40846934 L13.8582008,3.83502426 C13.65661,2.37009263 13.4632474,1.09175121 13.278113,0 L7,0 L7,18 L11.2416347,18 L11.2580911,6.11380679 L13.0436094,18 L16.0633571,18 L17.7583653,5.8517865 L17.7707076,18
+                        L22,18 L22,0 L15.6725178,0 Z "
                     ></path>
                     <path
-                      d="M24,18 L24,0 L31.8045586,0 C33.5693522,0 35,1.41994415 35,3.17660424 L35,14.8233958 C35,16.5777858 33.5716617,18 31.8045586,18 L24,18 Z M29.8322479,3.2395236 C29.6339219,3.13233348 29.2545158,3.08072342 28.7026524,3.08072342 L28.7026524,14.8914865 C29.4312846,14.8914865 29.8796736,14.7604764 30.0478195,14.4865461 C30.2159654,14.2165858 30.3021941,13.486105 30.3021941,12.2871637 L30.3021941,5.3078959 C30.3021941,4.49404499 30.272014,3.97397442 30.2159654,3.74371416 C30.1599168,3.5134539 30.0348852,3.34671372 29.8322479,3.2395236 Z"
+                      d="M24,18 L24,0 L31.8045586,0 C33.5693522,0 35,1.41994415 35,3.17660424 L35,14.8233958 C35,16.5777858 33.5716617,18 31.8045586,18 L24,18 Z M29.8322479,3.2395236 C29.6339219,3.13233348 29.2545158,3.08072342 28.7026524,3.08072342
+                        L28.7026524,14.8914865 C29.4312846,14.8914865 29.8796736,14.7604764 30.0478195,14.4865461 C30.2159654,14.2165858 30.3021941,13.486105 30.3021941,12.2871637 L30.3021941,5.3078959 C30.3021941,4.49404499 30.272014,3.97397442 30.2159654,3.74371416
+                        C30.1599168,3.5134539 30.0348852,3.34671372 29.8322479,3.2395236 Z "
                     ></path>
                     <path
-                      d="M44.4299079,4.50685823 L44.749518,4.50685823 C46.5447098,4.50685823 48,5.91267586 48,7.64486762 L48,14.8619906 C48,16.5950653 46.5451816,18 44.749518,18 L44.4299079,18 C43.3314617,18 42.3602746,17.4736618 41.7718697,16.6682739 L41.4838962,17.7687785 L37,17.7687785 L37,0 L41.7843263,0 L41.7843263,5.78053556 C42.4024982,5.01015739 43.3551514,4.50685823 44.4299079,4.50685823 Z M43.4055679,13.2842155 L43.4055679,9.01907814 C43.4055679,8.31433946 43.3603268,7.85185468 43.2660746,7.63896485 C43.1718224,7.42607505 42.7955881,7.2893916 42.5316822,7.2893916 C42.267776,7.2893916 41.8607934,7.40047379 41.7816216,7.58767002 L41.7816216,9.01907814 L41.7816216,13.4207851 L41.7816216,14.8074788 C41.8721037,15.0130276 42.2602358,15.1274059 42.5316822,15.1274059 C42.8031285,15.1274059 43.1982131,15.0166981 43.281155,14.8074788 C43.3640968,14.5982595 43.4055679,14.0880581 43.4055679,13.2842155 Z"
+                      d="M44.4299079,4.50685823 L44.749518,4.50685823 C46.5447098,4.50685823 48,5.91267586 48,7.64486762 L48,14.8619906 C48,16.5950653 46.5451816,18 44.749518,18 L44.4299079,18 C43.3314617,18 42.3602746,17.4736618 41.7718697,16.6682739
+                        L41.4838962,17.7687785 L37,17.7687785 L37,0 L41.7843263,0 L41.7843263,5.78053556 C42.4024982,5.01015739 43.3551514,4.50685823 44.4299079,4.50685823 Z M43.4055679,13.2842155 L43.4055679,9.01907814 C43.4055679,8.31433946 43.3603268,7.85185468
+                        43.2660746,7.63896485 C43.1718224,7.42607505 42.7955881,7.2893916 42.5316822,7.2893916 C42.267776,7.2893916 41.8607934,7.40047379 41.7816216,7.58767002 L41.7816216,9.01907814 L41.7816216,13.4207851 L41.7816216,14.8074788 C41.8721037,15.0130276
+                        42.2602358,15.1274059 42.5316822,15.1274059 C42.8031285,15.1274059 43.1982131,15.0166981 43.281155,14.8074788 C43.3640968,14.5982595 43.4055679,14.0880581 43.4055679,13.2842155 Z "
                     ></path>
                   </g>
                 </svg>
-                <span class="text-white text-xs ml-1">{{ data?.vote_average?.toFixed(1) }}
-                  <span class="fa fa-star text-yellow-500 text-xs"></span> | Votes : {{ data?.vote_count }}
+                <span class="text-white text-xs ml-1 ">{{ data?.vote_average?.toFixed(1) }}
+                  <span class="fa fa-star text-yellow-500 text-xs "></span> | Votes : {{ data?.vote_count }}
                 </span>
             </div>
-            <div class=" mt-3  border text-sm">
-                <div class="bg-neutral-600 text-white w-full text-center py-1.5 px-2 flex justify-between">
+            <div class=" mt-3 border text-sm ">
+                <div class="bg-neutral-600 text-white w-full text-center py-1.5 px-2 flex justify-between ">
                     Where to watch
-                    <button (click)="openTrailer()" class="bg-transparent rounded-sm hover:text-neutral-700 "><i class="fa-solid fa-circle-play hover:text-neutral-700"></i> Trailer</button>
+                    <button (click)="openTrailer() " class="bg-transparent rounded-sm hover:text-neutral-700 "><i class="fa-solid fa-circle-play hover:text-neutral-700 "></i> Trailer</button>
                 </div>
-                <ng-container *ngFor="let provider of providers.buy">
-                    <div *ngIf="provider?.logo_path" class="bg-neutral-900 border-t text-white w-full text-center py-1.5 px-2 flex justify-between items-center">
-                        <div class="text-xs">{{ provider?.provider_name }}</div>
-                        <img class="w-[30px] rounded-lg border" [src]="imgProviderUrl + provider?.logo_path" alt="">
+                <ng-container *ngFor="let provider of providers.buy ">
+                    <div *ngIf="provider?.logo_path " class="bg-neutral-900 border-t text-white w-full text-center py-1.5 px-2 flex justify-between items-center ">
+                        <div class="text-xs ">{{ provider?.provider_name }}</div>
+                        <img class="w-[30px] rounded-lg border " [src]="imgProviderUrl + provider?.logo_path " alt=" ">
                     </div>
                 </ng-container>
 
             </div>
         </div>
-        <div class="md:col-span-3">
-            <div class="text-white font-sans md:space-x-2">
-                <div class="title-font text-4xl font-extrabold">{{ data.original_title }} </div>
-                <div class="  text-sm text-gray-200 font-semibold">
-                    <span class="font-sans text-neutral-300 text-sm font-medium">Directed by </span> <span class="font-sans underline text-red-100 text-sm font-medium">{{ Director }}</span>
+        <div class="md:col-span-3 ">
+            <div class="text-white font-sans md:space-x-2 ">
+                <div class="title-font text-4xl font-extrabold ">{{ data.original_title }}
+
                 </div>
-                <div class="  text-xs text-gray-200 font-semibold"> <span class="text-red-500 font-semibold italic text-lg">Release Date : </span> {{ data?.release_date | date:'fullDate' }}</div>
-                <div class="  text-xs text-gray-200 font-semibold"> <span class="text-red-500 font-semibold italic text-lg">Status : </span> {{ data?.status }}</div>
-                <div class="  text-xs text-gray-200 font-semibold"> <span class="text-red-500 font-semibold italic text-lg">Budget : </span> {{ data?.budget |currency }} </div>
-                <div class="  text-xs text-gray-200 font-semibold"> <span class="text-red-500 font-semibold italic text-lg">Revenue : </span> {{ data?.revenue |currency }} </div>
-                <div class="  text-xs text-gray-200 font-semibold"> <span class="text-red-500 font-semibold italic text-lg">Duration : </span> {{ data?.runtime }} Min</div>
-                <div class="  text-xs text-gray-200 font-semibold"> <span class="text-red-500 font-semibold italic text-lg">Genres : </span>
-                    <ng-container *ngFor="let list of data?.genres">
-                        <a routerLink="/movies/genre/{{ list?.name }}/{{ list.id }}" class="px-3 mr-1 bg-neutral-700 text-xs py-0.5 hover:bg-neutral-800 text-white rounded-sm">
+                <div class=" text-sm text-gray-200 font-semibold ">
+                    <span class="font-sans text-neutral-300 text-sm font-medium ">Directed by </span> <span class="font-sans underline text-red-100 text-sm font-medium ">{{ Director }}</span>
+                </div>
+                <div class=" text-xs text-gray-200 font-semibold "> <span class="text-red-500 font-semibold italic text-lg ">Release Date : </span> {{ data?.release_date | date:'fullDate' }}</div>
+                <div class=" text-xs text-gray-200 font-semibold "> <span class="text-red-500 font-semibold italic text-lg ">Status : </span> {{ data?.status }}</div>
+                <div class=" text-xs text-gray-200 font-semibold "> <span class="text-red-500 font-semibold italic text-lg ">Budget : </span> {{ data?.budget |currency }} </div>
+                <div class=" text-xs text-gray-200 font-semibold "> <span class="text-red-500 font-semibold italic text-lg ">Revenue : </span> {{ data?.revenue |currency }} </div>
+                <div class=" text-xs text-gray-200 font-semibold "> <span class="text-red-500 font-semibold italic text-lg ">Duration : </span> {{ data?.runtime }} Min</div>
+                <div class=" text-xs text-gray-200 font-semibold "> <span class="text-red-500 font-semibold italic text-lg ">Genres : </span>
+                    <ng-container *ngFor="let list of data?.genres ">
+                        <a routerLink="/movies/genre/{{ list?.name }}/{{ list.id }} " class="px-3 mr-1 bg-neutral-700 text-xs py-0.5 hover:bg-neutral-800 text-white rounded-sm ">
                         {{ list?.name }}
                       </a>
                     </ng-container>
                 </div>
-                <div class="  text-xs text-gray-200 font-semibold"> <span class="text-red-500 font-semibold italic md:text-sm">Overview : </span> {{ data?.overview }}
+                <div class=" text-xs text-gray-200 font-semibold "> <span class="text-red-500 font-semibold italic md:text-sm ">Overview : </span> {{ data?.overview }}
                 </div>
 
-                <div class=" text-xs mt-4 mb-2 shadow-sm">
-                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'cast'}" type="button" (click)="showDetails('cast')" class="px-4 uppercase py-2 text-xs md:text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
+                <div class=" text-xs mt-4 mb-2 shadow-sm ">
+                    <button [ngClass]="{ 'border-neutral-700 border-b-4': selectedDetails=='cast' } " type="button " (click)="showDetails( 'cast') " class="px-4 uppercase py-2 text-xs md:text-sm font-medium border-b border-red-500 hover:border-b-4 text-start
+                        hover:text-red-700 hover:border-red-700 ">
                     Cast
                   </button>
-                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'crew'}" type="button" (click)="showDetails('crew')" class="px-4 uppercase py-2 text-xs md:text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
+                    <button [ngClass]="{ 'border-neutral-700 border-b-4': selectedDetails=='crew' } " type="button " (click)="showDetails( 'crew') " class="px-4 uppercase py-2 text-xs md:text-sm font-medium border-b border-red-500 hover:border-b-4 text-start
+                        hover:text-red-700 hover:border-red-700 ">
                     Crew
                   </button>
-                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'details'}" type="button" (click)="showDetails('details')" class="px-4 uppercase py-2 text-xs md:text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
+                    <button [ngClass]="{ 'border-neutral-700 border-b-4': selectedDetails=='details' } " type="button " (click)="showDetails( 'details') " class="px-4 uppercase py-2 text-xs md:text-sm font-medium border-b border-red-500 hover:border-b-4
+                        text-start hover:text-red-700 hover:border-red-700 ">
                     Details
                   </button>
-                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'images'}" type="button" (click)="showDetails('images')" class="px-4 uppercase py-2 text-xs md:text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
+                    <button [ngClass]="{ 'border-neutral-700 border-b-4': selectedDetails=='images' } " type="button " (click)="showDetails( 'images') " class="px-4 uppercase py-2 text-xs md:text-sm font-medium border-b border-red-500 hover:border-b-4
+                        text-start hover:text-red-700 hover:border-red-700 ">
                     Images
                   </button>
-                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'videos'}" type="button" (click)="showDetails('videos');getMovieVideos()" class="px-4 uppercase py-2 text-xs md:text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
+                    <button [ngClass]="{ 'border-neutral-700 border-b-4': selectedDetails=='videos' } " type="button " (click)="showDetails( 'videos');getMovieVideos() " class="px-4 uppercase py-2 text-xs md:text-sm font-medium border-b border-red-500
+                        hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
                     Videos
                   </button>
                 </div>
-                <div id="casts" *ngIf="selectedDetails == 'cast'" class="space-y-1 text-xs">
-                    <ng-container *ngFor="let cast of casts">
-                        <a routerLink="/movies/cast/{{ castNameSlug(cast.original_name) }}/{{ cast.id }}" class="inline-block px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm">{{ cast.original_name }}</a>
+                <div id="casts " *ngIf="selectedDetails=='cast' " class="space-y-1 text-xs ">
+                    <ng-container *ngFor="let cast of casts ">
+                        <a routerLink="/movies/cast/{{ castNameSlug(cast.original_name) }}/{{ cast.id }} " class="inline-block px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{ cast.original_name }}</a>
                     </ng-container>
                 </div>
-                <div id="crew" *ngIf="selectedDetails == 'crew'" class="space-y-1">
-                    <div class="grid grid-cols-3 gap-4 text-xs">
-                        <h5 *ngIf="directing.length" class=" overflow-hidden  text-sm uppercase italic text-white">Director<span class="ml-2"><hr></span></h5>
-                        <div *ngIf="directing.length" class="col-span-2">
-                            <div class="space-y-1">
-                                <ng-container *ngFor="let pers of directing">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm">{{ pers.original_name }}</button>
+                <div id="crew " *ngIf="selectedDetails=='crew' " class="space-y-1 ">
+                    <div class="grid grid-cols-3 gap-4 text-xs ">
+                        <h5 *ngIf="directing.length " class=" overflow-hidden text-sm uppercase italic text-white ">Director<span class="ml-2 "><hr></span></h5>
+                        <div *ngIf="directing.length " class="col-span-2 ">
+                            <div class="space-y-1 ">
+                                <ng-container *ngFor="let pers of directing ">
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{ pers.original_name }}</button>
                                 </ng-container>
                             </div>
                         </div>
 
-                        <h5 *ngIf="production.length" class=" overflow-hidden  text-sm uppercase italic text-white">Producers<span class="ml-2"><hr></span></h5>
-                        <div *ngIf="production.length" class="col-span-2">
-                            <div class="space-y-1">
-                                <ng-container *ngFor="let pers of production">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm">{{ pers.original_name }}</button>
+                        <h5 *ngIf="production.length " class=" overflow-hidden text-sm uppercase italic text-white ">Producers<span class="ml-2 "><hr></span></h5>
+                        <div *ngIf="production.length " class="col-span-2 ">
+                            <div class="space-y-1 ">
+                                <ng-container *ngFor="let pers of production ">
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{ pers.original_name }}</button>
                                 </ng-container>
                             </div>
                         </div>
 
-                        <h5 *ngIf="writer.length" class=" overflow-hidden  text-sm uppercase italic text-white">Writers<span class="ml-2"><hr></span></h5>
-                        <div *ngIf="writer.length" class="col-span-2">
-                            <div class="space-y-1">
-                                <ng-container *ngFor="let pers of writer">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm">{{ pers.original_name }}</button>
+                        <h5 *ngIf="writer.length " class=" overflow-hidden text-sm uppercase italic text-white ">Writers<span class="ml-2 "><hr></span></h5>
+                        <div *ngIf="writer.length " class="col-span-2 ">
+                            <div class="space-y-1 ">
+                                <ng-container *ngFor="let pers of writer ">
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{ pers.original_name }}</button>
                                 </ng-container>
                             </div>
                         </div>
 
-                        <h5 *ngIf="camera.length" class=" overflow-hidden  text-sm uppercase italic text-white">Cinematography<span class="ml-2"><hr></span></h5>
-                        <div *ngIf="camera.length" class="col-span-2">
-                            <div class="space-y-1">
-                                <ng-container *ngFor="let pers of camera">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm">{{ pers.original_name }}</button>
+                        <h5 *ngIf="camera.length " class=" overflow-hidden text-sm uppercase italic text-white ">Cinematography<span class="ml-2 "><hr></span></h5>
+                        <div *ngIf="camera.length " class="col-span-2 ">
+                            <div class="space-y-1 ">
+                                <ng-container *ngFor="let pers of camera ">
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{ pers.original_name }}</button>
                                 </ng-container>
                             </div>
                         </div>
 
-                        <h5 *ngIf="sound.length" class=" overflow-hidden  text-sm uppercase italic text-white">sound<span class="ml-2"><hr></span></h5>
-                        <div *ngIf="sound.length" class="col-span-2">
-                            <div class="space-y-1">
-                                <ng-container *ngFor="let pers of sound">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm">{{ pers.original_name }}</button>
+                        <h5 *ngIf="sound.length " class=" overflow-hidden text-sm uppercase italic text-white ">sound<span class="ml-2 "><hr></span></h5>
+                        <div *ngIf="sound.length " class="col-span-2 ">
+                            <div class="space-y-1 ">
+                                <ng-container *ngFor="let pers of sound ">
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{ pers.original_name }}</button>
                                 </ng-container>
                             </div>
                         </div>
 
-                        <h5 *ngIf="makeUp.length" class=" overflow-hidden  text-sm uppercase italic text-white">MakeUp<span class="ml-2"><hr></span></h5>
-                        <div *ngIf="makeUp.length" class="col-span-2">
-                            <div class="space-y-1">
-                                <ng-container *ngFor="let pers of makeUp">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm">{{ pers.original_name }}</button>
-                                </ng-container>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="details" *ngIf="selectedDetails == 'details'" class="space-y-1">
-                    <div class="grid grid-cols-3 gap-4 text-xs">
-                        <h5 class=" overflow-hidden  text-sm uppercase italic  text-white">STUDIO<span class=" ml-2"><hr></span></h5>
-
-                        <div class=" col-span-2">
-                            <div class="space-y-1">
-                                <ng-container *ngFor="let list of data?.production_companies">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm">{{  list?.name }}</button>
-                                </ng-container>
-                            </div>
-                        </div>
-
-
-                        <h5 class=" overflow-hidden  text-sm uppercase italic text-white">Country<span class="ml-2"><hr></span></h5>
-                        <div class=" col-span-2">
-                            <div class="space-y-1">
-                                <ng-container *ngFor="let list of data?.production_countries">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm">{{  list.iso_3166_1 }}</button>
-                                </ng-container>
-                            </div>
-                        </div>
-
-                        <h5 class=" overflow-hidden  text-sm uppercase italic text-white">Original<span class="ml-2">Language <hr></span></h5>
-                        <div class=" col-span-2">
-                            <div class="space-y-1">
-                                <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white uppercase rounded-sm">{{  data.original_language }}</button>
-                            </div>
-                        </div>
-
-                        <h5 class=" overflow-hidden  text-sm uppercase italic text-white">Spoken<span class="ml-2">Languages <hr></span></h5>
-                        <div class=" col-span-2">
-                            <div class="space-y-1">
-                                <ng-container *ngFor="let list of data?.spoken_languages">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm">{{  list.english_name }}</button>
+                        <h5 *ngIf="makeUp.length " class=" overflow-hidden text-sm uppercase italic text-white ">MakeUp<span class="ml-2 "><hr></span></h5>
+                        <div *ngIf="makeUp.length " class="col-span-2 ">
+                            <div class="space-y-1 ">
+                                <ng-container *ngFor="let pers of makeUp ">
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{ pers.original_name }}</button>
                                 </ng-container>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="images" *ngIf="selectedDetails == 'images'" class="space-y-1">
-                    <div class="grid grid-cols-3 gap-4 text-xs">
-                        <h5 class=" overflow-hidden  text-sm uppercase italic  text-white">POSTERS<span class=" ml-2"><hr></span></h5>
+                <div id="details " *ngIf="selectedDetails=='details' " class="space-y-1 ">
+                    <div class="grid grid-cols-3 gap-4 text-xs ">
+                        <h5 class=" overflow-hidden text-sm uppercase italic text-white ">STUDIO<span class=" ml-2 "><hr></span></h5>
 
-                        <div class=" col-span-2">
-                            <div class="space-y-1">
-                                <button (click)="getMovieImages('posters')" class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm">POSTERS</button>
+                        <div class=" col-span-2 ">
+                            <div class="space-y-1 ">
+                                <ng-container *ngFor="let list of data?.production_companies ">
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{  list?.name }}</button>
+                                </ng-container>
+                            </div>
+                        </div>
+
+
+                        <h5 class=" overflow-hidden text-sm uppercase italic text-white ">Country<span class="ml-2 "><hr></span></h5>
+                        <div class=" col-span-2 ">
+                            <div class="space-y-1 ">
+                                <ng-container *ngFor="let list of data?.production_countries ">
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{  list.iso_3166_1 }}</button>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <h5 class=" overflow-hidden text-sm uppercase italic text-white ">Original<span class="ml-2 ">Language <hr></span></h5>
+                        <div class=" col-span-2 ">
+                            <div class="space-y-1 ">
+                                <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white uppercase rounded-sm ">{{  data.original_language }}</button>
+                            </div>
+                        </div>
+
+                        <h5 class=" overflow-hidden text-sm uppercase italic text-white ">Spoken<span class="ml-2 ">Languages <hr></span></h5>
+                        <div class=" col-span-2 ">
+                            <div class="space-y-1 ">
+                                <ng-container *ngFor="let list of data?.spoken_languages ">
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{  list.english_name }}</button>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="images " *ngIf="selectedDetails=='images' " class="space-y-1 ">
+                    <div class="grid grid-cols-3 gap-4 text-xs ">
+                        <h5 class=" overflow-hidden text-sm uppercase italic text-white ">POSTERS<span class=" ml-2 "><hr></span></h5>
+
+                        <div class=" col-span-2 ">
+                            <div class="space-y-1 ">
+                                <button (click)="getMovieImages( 'posters') " class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">POSTERS</button>
                             </div>
                         </div>
 
                     </div>
 
-                    <div class="grid grid-cols-3 gap-4 text-xs">
-                        <h5 class=" overflow-hidden  text-sm uppercase italic  text-white">BACKDROPS<span class=" ml-2"><hr></span></h5>
+                    <div class="grid grid-cols-3 gap-4 text-xs ">
+                        <h5 class=" overflow-hidden text-sm uppercase italic text-white ">BACKDROPS<span class=" ml-2 "><hr></span></h5>
 
-                        <div class=" col-span-2">
-                            <div class="space-y-1">
-                                <button (click)="getMovieImages('backdrops')" class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm">BACKDROPS</button>
+                        <div class=" col-span-2 ">
+                            <div class="space-y-1 ">
+                                <button (click)="getMovieImages( 'backdrops') " class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">BACKDROPS</button>
                             </div>
                         </div>
 
                     </div>
                 </div>
             </div>
-            <div *ngIf="similarMovies.length" class="border-b border-red-500 text-white py-1 ml-2 mt-6">
-                <span class="uppercase">Similar MOVIES</span>
-                <span class="uppercase float-right underline hover:text-red-500"><a routerLink="/movies/similare/{{ castNameSlug(data.original_title) }}/{{ data.id }}">SHOW ALL</a></span>
+            <div *ngIf="similarMovies.length " class="border-b border-red-500 text-white py-1 ml-2 mt-6 ">
+                <span class="uppercase ">Similar MOVIES</span>
+                <span class="uppercase float-right underline hover:text-red-500 "><a routerLink="/movies/similare/{{ castNameSlug(data.original_title) }}/{{ data.id }} ">SHOW ALL</a></span>
             </div>
-            <div *ngIf="similarMovies.length" class="grid grid-cols-2 md:grid-cols-10 gap-2 ml-2 mt-4">
-                <ng-container *ngFor="let item of similarMovies">
-                    <app-listing (click)="changeMovieId(item.id)" *ngIf="item.poster_path" [item]="item" />
+            <div *ngIf="similarMovies.length " class="grid grid-cols-2 md:grid-cols-5 gap-2 ml-2 mt-4 ">
+                <ng-container *ngFor="let item of similarMovies ">
+                    <app-listing (click)="changeMovieId(item.id) " [height]="{'h-[260px] md:h-[200px]':true}" *ngIf="item.poster_path " [item]="item " />
                 </ng-container>
 
             </div>
