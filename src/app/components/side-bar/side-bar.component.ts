@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-side-bar',
@@ -18,6 +19,9 @@ export class SideBarComponent {
   isSessionExist: boolean = false
   session_id: any
   user: any
+
+  private domain = environment.domain
+
   constructor(private auth: AuthService, private cookieService: CookieService, private userService: UserService) {
 
   }
@@ -39,7 +43,7 @@ export class SideBarComponent {
 
       this.auth.requestToken().subscribe({
         next: res => {
-          window.location.href = `https://www.themoviedb.org/authenticate/${res.request_token}?redirect_to=http://localhost:4200/approved`;
+          window.location.href = `https://www.themoviedb.org/authenticate/${res.request_token}?redirect_to=${this.domain}approved`;
         },
         error: err => console.error
       })
