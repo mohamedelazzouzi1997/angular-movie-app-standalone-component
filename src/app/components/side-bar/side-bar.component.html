@@ -43,8 +43,8 @@
 
     </ul>
 
-    <button *ngIf="!isSessionExist" (click)="login()" class="hidden lg:inline-block py-2 px-6 bg-red-500 hover:bg-blue-600 opacity-100 text-sm text-white font-bold rounded-xl transition duration-200">Sign up</button>
-    <div *ngIf="isSessionExist" class="flex justify-center space-x-2 items-center">
+    <button *ngIf="!isSessionExist" (click)="login()" class=" hidden md:inline-block py-2 px-6 bg-red-500 hover:bg-blue-600 opacity-100 text-sm text-white font-bold rounded-xl transition duration-200">Sign up</button>
+    <div *ngIf="isSessionExist" class=" hidden md:flex justify-center space-x-2 items-center">
         <span class="text-white">{{ user?.username }}</span>
         <span>
           <img *ngIf="!user?.avatar.tmdb.avatar_path" [src]="'https://ui-avatars.com/api/?name='+ user?.username +'?background=17171A&color=93090A'" class="rounded-full border w-[35px] h-[35px]">
@@ -56,7 +56,7 @@
 </nav>
 <div class="navbar-menu relative z-50 hidden">
     <div class="navbar-backdrop fixed inset-0 bg-[#17171A] opacity-25"></div>
-    <nav class="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-[#17171A] border-r overflow-y-auto">
+    <nav class="fixed top-0 left-0 bottom-0 flex flex-col w-3/6 max-w-sm py-6 px-6 bg-[#17171A] overflow-y-auto">
         <div class="flex items-center mb-8">
             <a class="text-3xl font-bold leading-none" routerLink="/movies/list">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="45" height="45" viewBox="0,0,256,256">
@@ -97,6 +97,16 @@
 
                         <span>Coming Soon</span>
                     </a>
+                </li>
+                <li class="mb-1">
+                    <button *ngIf="!isSessionExist" (click)="login()" class=" inline-block  py-2 px-6 bg-red-500 hover:bg-blue-600 opacity-100 text-sm text-white font-bold rounded-xl transition duration-200">Sign up</button>
+                    <div *ngIf="isSessionExist" class="flex space-x-2 items-center">
+                        <span>
+                      <img *ngIf="!user?.avatar.tmdb.avatar_path" [src]="'https://ui-avatars.com/api/?name='+ user?.username +'?background=17171A&color=93090A'" class="rounded-full border w-[35px] h-[35px]">
+                      <img *ngIf="user?.avatar.tmdb.avatar_path" [src]="profileURL + user?.avatar.tmdb.avatar_path" class="rounded-full border w-[35px] h-[35px]">
+                    </span>
+                        <span class="text-white">{{ user?.username }}</span>
+                    </div>
                 </li>
             </ul>
         </div>
