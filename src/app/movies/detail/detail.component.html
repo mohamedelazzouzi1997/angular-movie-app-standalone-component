@@ -6,8 +6,8 @@
 </div>
 <div class="container ">
 
-    <div class="grid grid-cols-4">
-        <div class="px-8 pt-[10px]">
+    <div class="grid grid-cols-1 md:grid-cols-4">
+        <div class="md:px-8 pt-[10px]">
             <img class="border w-full  mx-auto" [src]="imageUrlPoster + data?.poster_path" alt="">
             <div class="flex mt-1 justify-center">
                 <svg class="w-8 h-4 z-20 opacity-100" xmlns="http://www.w3.org/2000/svg" width="64" height="32" viewBox="0 0 64 32" version="1.1">
@@ -42,15 +42,15 @@
                 </div>
                 <ng-container *ngFor="let provider of providers.buy">
                     <div *ngIf="provider?.logo_path" class="bg-neutral-900 border-t text-white w-full text-center py-1.5 px-2 flex justify-between items-center">
-                        <div class="text-xs">{{ provider.provider_name }}</div>
+                        <div class="text-xs">{{ provider?.provider_name }}</div>
                         <img class="w-[30px] rounded-lg border" [src]="imgProviderUrl + provider?.logo_path" alt="">
                     </div>
                 </ng-container>
 
             </div>
         </div>
-        <div class="col-span-3">
-            <div class="text-white font-sans space-x-2">
+        <div class="md:col-span-3">
+            <div class="text-white font-sans md:space-x-2">
                 <div class="title-font text-4xl font-extrabold">{{ data.original_title }} </div>
                 <div class="  text-sm text-gray-200 font-semibold">
                     <span class="font-sans text-neutral-300 text-sm font-medium">Directed by </span> <span class="font-sans underline text-red-100 text-sm font-medium">{{ Director }}</span>
@@ -62,28 +62,28 @@
                 <div class="  text-xs text-gray-200 font-semibold"> <span class="text-red-500 font-semibold italic text-lg">Duration : </span> {{ data?.runtime }} Min</div>
                 <div class="  text-xs text-gray-200 font-semibold"> <span class="text-red-500 font-semibold italic text-lg">Genres : </span>
                     <ng-container *ngFor="let list of data?.genres">
-                        <a routerLink="/movies/genre/{{ list.name }}/{{ list.id }}" class="px-3 mr-1 bg-neutral-700 text-xs py-0.5 hover:bg-neutral-800 text-white rounded-sm">
-                        {{ list.name }}
+                        <a routerLink="/movies/genre/{{ list?.name }}/{{ list.id }}" class="px-3 mr-1 bg-neutral-700 text-xs py-0.5 hover:bg-neutral-800 text-white rounded-sm">
+                        {{ list?.name }}
                       </a>
                     </ng-container>
                 </div>
-                <div class="  text-xs text-gray-200 font-semibold"> <span class="text-red-500 font-semibold italic text-sm">Overview : </span> {{ data?.overview }}
+                <div class="  text-xs text-gray-200 font-semibold"> <span class="text-red-500 font-semibold italic md:text-sm">Overview : </span> {{ data?.overview }}
                 </div>
 
-                <div class=" mt-4 mb-2 shadow-sm">
-                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'cast'}" type="button" (click)="showDetails('cast')" class="px-4 uppercase py-2 text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
+                <div class=" text-xs mt-4 mb-2 shadow-sm">
+                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'cast'}" type="button" (click)="showDetails('cast')" class="px-4 uppercase py-2 text-xs md:text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
                     Cast
                   </button>
-                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'crew'}" type="button" (click)="showDetails('crew')" class="px-4 uppercase py-2 text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
+                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'crew'}" type="button" (click)="showDetails('crew')" class="px-4 uppercase py-2 text-xs md:text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
                     Crew
                   </button>
-                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'details'}" type="button" (click)="showDetails('details')" class="px-4 uppercase py-2 text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
+                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'details'}" type="button" (click)="showDetails('details')" class="px-4 uppercase py-2 text-xs md:text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
                     Details
                   </button>
-                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'images'}" type="button" (click)="showDetails('images')" class="px-4 uppercase py-2 text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
+                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'images'}" type="button" (click)="showDetails('images')" class="px-4 uppercase py-2 text-xs md:text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
                     Images
                   </button>
-                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'videos'}" type="button" (click)="showDetails('videos');getMovieVideos()" class="px-4 uppercase py-2 text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
+                    <button [ngClass]="{'border-neutral-700 border-b-4': selectedDetails == 'videos'}" type="button" (click)="showDetails('videos');getMovieVideos()" class="px-4 uppercase py-2 text-xs md:text-sm font-medium border-b border-red-500 hover:border-b-4 text-start hover:text-red-700 hover:border-red-700 ">
                     Videos
                   </button>
                 </div>
@@ -156,7 +156,7 @@
                         <div class=" col-span-2">
                             <div class="space-y-1">
                                 <ng-container *ngFor="let list of data?.production_companies">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm">{{  list.name }}</button>
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm">{{  list?.name }}</button>
                                 </ng-container>
                             </div>
                         </div>
@@ -212,13 +212,13 @@
                     </div>
                 </div>
             </div>
-            <div class="border-b border-red-500 text-white py-1 ml-2 mt-6">
+            <div *ngIf="similarMovies.length" class="border-b border-red-500 text-white py-1 ml-2 mt-6">
                 <span class="uppercase">Similar MOVIES</span>
-                <span class="uppercase float-right underline"><a routerLink="/movies/similare/{{ castNameSlug(data.original_title) }}/{{ data.id }}">SHOW ALL</a></span>
+                <span class="uppercase float-right underline hover:text-red-500"><a routerLink="/movies/similare/{{ castNameSlug(data.original_title) }}/{{ data.id }}">SHOW ALL</a></span>
             </div>
-            <div class="grid grid-cols-10 gap-2 ml-2 mt-4">
+            <div *ngIf="similarMovies.length" class="grid grid-cols-2 md:grid-cols-10 gap-2 ml-2 mt-4">
                 <ng-container *ngFor="let item of similarMovies">
-                    <app-listing [isListing]="false" *ngIf="item.poster_path" [item]="item" />
+                    <app-listing (click)="changeMovieId(item.id)" *ngIf="item.poster_path" [item]="item" />
                 </ng-container>
 
             </div>

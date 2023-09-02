@@ -1,6 +1,8 @@
-<div class="relative group hover:scale-[1.02] duration-200  flex justify-center">
-    <div class="absolute top-0 right-0 left-0 rounded-md bottom-0 bg-black hover:opacity-0 opacity-60 z-10 "></div>
-    <div class="flex mt-1 absolute top-0 left-2 z-10 group-hover:hidden">
+<div class="relative group hover:scale-[1.02] duration-200  flex justify-center ">
+    <div class="absolute top-0 right-0 left-0 rounded-md bottom-0 bg-black hidden md:block  hover:opacity-0 opacity-60 z-10 "></div>
+    <div class="flex mt-1 absolute top-0 left-2 z-10 md:group-hover:hidden p-1">
+        <div class="absolute top-0 right-0 left-0 rounded-md bottom-0 bg-black  hover:opacity-0 opacity-60 z-10 "></div>
+
         <svg class="w-8 h-4 z-20 opacity-100" xmlns="http://www.w3.org/2000/svg" width="64" height="32" viewBox="0 0 64 32" version="1.1">
       <g fill="#F5C518">
         <rect x="0" y="0" width="100%" height="100%" rx="4"></rect>
@@ -22,11 +24,11 @@
         ></path>
       </g>
     </svg>
-        <span class="text-white text-xs ml-1">{{ item.vote_average.toFixed(1) }}
+        <span class="text-white text-xs ml-1 z-20">{{ item.vote_average.toFixed(1) }}
       <span class="fa fa-star text-yellow-500 text-xs"></span
     ></span>
     </div>
     <a routerLink="/movies/movie/{{ item.id }}" class="group-hover:z-20">
-        <img [src]="imageUrlPoster + item.poster_path" class="w-full rounded-md " [ngClass]="{'h-[324px]': isListing,'h-full': !isListing}" alt="" />
+        <img [src]="imageUrlPoster + item.poster_path" class="w-full h-full min-h-full rounded-md " [style]="height" alt="" />
     </a>
 </div>

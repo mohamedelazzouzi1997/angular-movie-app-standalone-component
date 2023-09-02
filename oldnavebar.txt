@@ -134,3 +134,6 @@
         <label for="toggle" class="">Dark Theme</label>
     </a>
 </div> -->
+
+
+    <div class="absolute  h-[30px] md:h-full top-0 right-0 left-0 rounded-t-md md:rounded-md md:bottom-0 bg-black  md:hover:opacity-0 opacity-60 z-10 "></div>
