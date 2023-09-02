@@ -49,22 +49,26 @@ export class DetailComponent {
   constructor(private movieService: MoviesService, private dialog: MatDialog, private router: Router) {
 
   }
-
-
   @Input('id') movieId!: number;
+
   ngOnInit(): void {
     this.getMovieDetails();
     this.getCredits()
     this.getMovieProviders()
     this.getSimilareMovies()
+    console.log('this movieid', this.movieId)
   }
 
+  changeMovieId(id: number) {
+    this.movieId = id
+    this.ngOnInit();
+  }
 
   getMovieDetails() {
     this.movieService.getMovieDetails(this.movieId).subscribe({
       next: (res) => {
         this.data = res;
-        console.log('res', res)
+
       },
       error: (err) => console.error,
     });
