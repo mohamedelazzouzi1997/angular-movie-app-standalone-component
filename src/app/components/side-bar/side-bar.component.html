@@ -1,9 +1,17 @@
 <!-- </aside> -->
-<nav class=" z-50 sticky top-0 right-0 left-0 px-24 py-4 flex justify-between items-center bg-[#17171A]  shadow-xl">
+<nav class=" z-50 sticky top-0 right-0 left-0 px-24 py-4 flex justify-between items-center bg-zinc-950  shadow-xl">
     <a class="text-3xl font-bold leading-none" routerLink="/movies/list">
         <svg class="inline" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="45" height="45" viewBox="0,0,256,256">
-          <g fill="#e60000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M41.08789,0l-4.92187,4.90234c0.422,0.235 0.83428,0.48414 1.23828,0.74414zM37.4043,5.64648l-7.4043,11.35352h6l-9,11h6l-17.75391,17.82227c2.963,1.394 6.26891,2.17773 9.75391,2.17773c12.682,0 23,-10.318 23,-23c0,-8.116 -4.2287,-15.25852 -10.5957,-19.35352zM15.24609,45.82227c-0.378,-0.178 -0.75019,-0.36355 -1.11719,-0.56055l-3.04101,4.73828zM14.12891,45.26172l7.87109,-12.26172h-5l9,-11h-7l17.16602,-17.09766c-3.309,-1.846 -7.11602,-2.90234 -11.16602,-2.90234c-12.682,0 -23,10.318 -23,23c0,8.752 4.91591,16.37572 12.12891,20.26172z"></path></g></g>
-        </svg>
+      <g fill="#e60000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"
+        stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+        font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+        <g transform="scale(5.12,5.12)">
+          <path
+            d="M41.08789,0l-4.92187,4.90234c0.422,0.235 0.83428,0.48414 1.23828,0.74414zM37.4043,5.64648l-7.4043,11.35352h6l-9,11h6l-17.75391,17.82227c2.963,1.394 6.26891,2.17773 9.75391,2.17773c12.682,0 23,-10.318 23,-23c0,-8.116 -4.2287,-15.25852 -10.5957,-19.35352zM15.24609,45.82227c-0.378,-0.178 -0.75019,-0.36355 -1.11719,-0.56055l-3.04101,4.73828zM14.12891,45.26172l7.87109,-12.26172h-5l9,-11h-7l17.16602,-17.09766c-3.309,-1.846 -7.11602,-2.90234 -11.16602,-2.90234c-12.682,0 -23,10.318 -23,23c0,8.752 4.91591,16.37572 12.12891,20.26172z">
+          </path>
+        </g>
+      </g>
+    </svg>
         <span class="  tracking-wide text-white">
       MMovie<span class="text-red-600">.</span>
         </span>
@@ -15,7 +23,7 @@
       </svg>
     </button>
     </div>
-    <ul class="hidden text-xl space-x-4 text-neutral-400 font-sans font-bold uppercase absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
+    <ul class="hidden text-lg space-x-4 text-neutral-400 font-sans font-bold uppercase absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
         <li>
             <a class="flex items-center space-x-2 py-1 group hover:scale-105 duration-300 ease-in-out  text-white hover:text-red-500" routerLink="/movies/list" routerLinkActive="active-link">
                 <span>Newest</span>
@@ -40,19 +48,35 @@
                 <span>Coming Soon</span>
             </a>
         </li>
-
+        <li>
+            <a class="flex items-center hover:scale-105 duration-100 ease-in-out space-x-2 py-0.5  group px-3 bg-yellow-500 hover:bg-zinc-900 hover:text-yellow-500 border border-yellow-500 hover:border-yellow-500 text-zinc-950 rounded-sm " routerLink="/movies/search">
+                <span>Search</span>
+            </a>
+        </li>
     </ul>
-
-    <button *ngIf="!isSessionExist" (click)="login()" class=" hidden md:inline-block py-2 px-6 bg-red-500 hover:bg-blue-600 opacity-100 text-sm text-white font-bold rounded-xl transition duration-200">Sign up</button>
+    <button *ngIf="!isSessionExist" (click)="login()" class=" hidden md:inline-block py-2 px-6 bg-red-500 hover:bg-blue-600 opacity-100 text-sm text-white font-bold rounded-xl transition duration-200">Sign
+      up</button>
     <div *ngIf="isSessionExist" class=" hidden md:flex justify-center space-x-2 items-center">
+        <!-- <button mat-raised-button class="bg-yellow-500 rounded-sm px-3 py-1 hover:shadow-inner text-black hover:bg-yellow-600  ">Warn</button> -->
         <span class="text-white">{{ user?.username }}</span>
-        <span>
-          <img *ngIf="!user?.avatar.tmdb.avatar_path" [src]="'https://ui-avatars.com/api/?name='+ user?.username +'?background=17171A&color=93090A'" class="rounded-full border w-[35px] h-[35px]">
-          <img *ngIf="user?.avatar.tmdb.avatar_path" [src]="profileURL + user?.avatar.tmdb.avatar_path" class="rounded-full border w-[35px] h-[35px]">
-        </span>
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0.5" aria-label="Example icon-button with a menu">
+          <img *ngIf="!user?.avatar.tmdb.avatar_path"
+            [src]="'https://ui-avatars.com/api/?name='+ user?.username +'?background=17171A&color=93090A'"
+            class="rounded-full inline border w-[50px] h-[50px]">
+          <img *ngIf="user?.avatar.tmdb.avatar_path" [src]="profileURL + user?.avatar.tmdb.avatar_path"
+            class="rounded-full inline border w-[50px] h-[50px]">
+        </button>
+        <mat-menu #menu="matMenu" class="bg-neutral-700">
+            <a routerLink="/movies/{{ user?.username }}/watchlist" mat-menu-item>
+                <mat-icon> format_list_bulleted</mat-icon>
+                <span>  WatchList</span>
+            </a>
+            <a routerLink="/movies/{{ user?.username }}/favourit" mat-menu-item>
+                <mat-icon>favorite</mat-icon>
+                <span>Likes</span>
+            </a>
+        </mat-menu>
     </div>
-
-
 </nav>
 <div class="navbar-menu relative z-50 hidden">
     <div class="navbar-backdrop fixed inset-0 bg-[#17171A] opacity-25"></div>
@@ -60,10 +84,18 @@
         <div class="flex items-center mb-8">
             <a class="text-3xl font-bold leading-none" routerLink="/movies/list">
                 <svg class="inline" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="45" height="45" viewBox="0,0,256,256">
-          <g fill="#e60000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M41.08789,0l-4.92187,4.90234c0.422,0.235 0.83428,0.48414 1.23828,0.74414zM37.4043,5.64648l-7.4043,11.35352h6l-9,11h6l-17.75391,17.82227c2.963,1.394 6.26891,2.17773 9.75391,2.17773c12.682,0 23,-10.318 23,-23c0,-8.116 -4.2287,-15.25852 -10.5957,-19.35352zM15.24609,45.82227c-0.378,-0.178 -0.75019,-0.36355 -1.11719,-0.56055l-3.04101,4.73828zM14.12891,45.26172l7.87109,-12.26172h-5l9,-11h-7l17.16602,-17.09766c-3.309,-1.846 -7.11602,-2.90234 -11.16602,-2.90234c-12.682,0 -23,10.318 -23,23c0,8.752 4.91591,16.37572 12.12891,20.26172z"></path></g></g>
+          <g fill="#e60000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+            stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none"
+            font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+            <g transform="scale(5.12,5.12)">
+              <path
+                d="M41.08789,0l-4.92187,4.90234c0.422,0.235 0.83428,0.48414 1.23828,0.74414zM37.4043,5.64648l-7.4043,11.35352h6l-9,11h6l-17.75391,17.82227c2.963,1.394 6.26891,2.17773 9.75391,2.17773c12.682,0 23,-10.318 23,-23c0,-8.116 -4.2287,-15.25852 -10.5957,-19.35352zM15.24609,45.82227c-0.378,-0.178 -0.75019,-0.36355 -1.11719,-0.56055l-3.04101,4.73828zM14.12891,45.26172l7.87109,-12.26172h-5l9,-11h-7l17.16602,-17.09766c-3.309,-1.846 -7.11602,-2.90234 -11.16602,-2.90234c-12.682,0 -23,10.318 -23,23c0,8.752 4.91591,16.37572 12.12891,20.26172z">
+              </path>
+            </g>
+          </g>
         </svg>
                 <span class="  tracking-wide dark:text-white">
-      MMovie<span class="text-red-600">.</span>
+          MMovie<span class="text-red-600">.</span>
                 </span>
             </a>
             <button class="navbar-close">
@@ -99,12 +131,30 @@
                     </a>
                 </li>
                 <li class="mb-1">
+                    <a class="flex items-center space-x-2 py-1 group hover:scale-105 duration-300 ease-in-out hover:text-red-500" routerLink="/movies/search">
+                        <span>Search</span>
+                    </a>
+                </li>
+                <li *ngIf="isSessionExist" class="mb-1">
+                    <a class="flex items-center space-x-2 py-1 group hover:scale-105 duration-300 ease-in-out hover:text-red-500" routerLink="/movies/{{ user?.username }}/watchlist">
+                        <span>WatchList</span>
+                    </a>
+                </li>
+                <li *ngIf="isSessionExist" class="mb-1">
+                    <a class="flex items-center space-x-2 py-1 group hover:scale-105 duration-300 ease-in-out hover:text-red-500" routerLink="/movies/{{ user?.username }}/favourit">
+                        <span>Likes</span>
+                    </a>
+                </li>
+                <li class="mb-1">
                     <button *ngIf="!isSessionExist" (click)="login()" class=" inline-block  py-2 px-6 bg-red-500 hover:bg-blue-600 opacity-100 text-sm text-white font-bold rounded-xl transition duration-200">Sign up</button>
                     <div *ngIf="isSessionExist" class="flex space-x-2 items-center">
                         <span>
-                      <img *ngIf="!user?.avatar.tmdb.avatar_path" [src]="'https://ui-avatars.com/api/?name='+ user?.username +'?background=17171A&color=93090A'" class="rounded-full border w-[35px] h-[35px]">
-                      <img *ngIf="user?.avatar.tmdb.avatar_path" [src]="profileURL + user?.avatar.tmdb.avatar_path" class="rounded-full border w-[35px] h-[35px]">
-                    </span>
+                          <img *ngIf="!user?.avatar.tmdb.avatar_path"
+                            [src]="'https://ui-avatars.com/api/?name='+ user?.username +'?background=17171A&color=93090A'"
+                            class="rounded-full border w-[35px] h-[35px]">
+                          <img *ngIf="user?.avatar.tmdb.avatar_path" [src]="profileURL + user?.avatar.tmdb.avatar_path"
+                            class="rounded-full border w-[35px] h-[35px]">
+                        </span>
                         <span class="text-white">{{ user?.username }}</span>
                     </div>
                 </li>

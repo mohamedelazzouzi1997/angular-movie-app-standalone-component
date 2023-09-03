@@ -13,7 +13,6 @@ export class UserService {
   private baseUrl = environment.baseUrl;
   private userInfo: any
   session_id: any
-  private watchList: any
   constructor(private http: HttpClient, private cookieService: CookieService) {
     this.session_id = this.cookieService.get('TMDB-session-id')
   }
@@ -35,14 +34,19 @@ export class UserService {
     return this.http.get(url, options);
   }
 
-  getUserWatchList(account_id: number): Observable<any> {
+  getUserWatchList(account_id: number, page: any): Observable<any> {
     const url = `${this.baseUrl}/account/${account_id}/watchlist/movies`;
     const options = {
-      params: new HttpParams().set('api_key', this.apiKey).set('session_id', this.session_id),
+      params: new HttpParams().set('api_key', this.apiKey).set('session_id', this.session_id).set('page', page),
     };
     return this.http.get(url, options);
   }
-  setUserWatchList(watcheList: any) {
-    this.watchList = watcheList
+
+  getUserfavoriteList(account_id: number, page: any): Observable<any> {
+    const url = `${this.baseUrl}/account/${account_id}/favorite/movies`;
+    const options = {
+      params: new HttpParams().set('api_key', this.apiKey).set('session_id', this.session_id).set('page', page),
+    };
+    return this.http.get(url, options);
   }
 }

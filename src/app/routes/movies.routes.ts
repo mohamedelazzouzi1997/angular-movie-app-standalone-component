@@ -58,4 +58,25 @@ export const MOVIES_ROUTES: Routes = [
         (c) => c.SimilareComponent
       ),
   },
+  {
+    path: ':username/watchlist', //neeed guard
+    loadComponent: () =>
+      import('../movies/watchlist/watchlist.component').then(
+        (c) => c.WatchlistComponent
+      ),
+  },
+  {
+    path: ':username/favourit',
+    loadComponent: () =>
+      import('../movies/favourit/favourit.component').then(
+        (c) => c.FavouritComponent
+      ),
+  },
+  {
+    path: 'search',
+    loadComponent: () =>
+      import('../movies/search/search.component').then(
+        (c) => c.SearchComponent
+      ),
+  },
 ];

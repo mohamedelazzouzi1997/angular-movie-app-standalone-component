@@ -185,4 +185,12 @@ export class MoviesService {
     }, options);
   }
 
+
+  search(query: string, page: number): Observable<any> {
+    const url = `${this.baseUrl}/search/movie`;
+    const options = {
+      params: new HttpParams().set('api_key', this.apiKey).set('query', query).set('page', page),
+    };
+    return this.http.get(url, options);
+  }
 }

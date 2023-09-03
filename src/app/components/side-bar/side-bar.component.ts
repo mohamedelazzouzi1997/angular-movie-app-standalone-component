@@ -5,11 +5,13 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment.development';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 @Component({
   selector: 'app-side-bar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, MatButtonModule, MatMenuModule, MatIconModule],
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.scss'],
 })
@@ -51,6 +53,7 @@ export class SideBarComponent {
       next: res => {
         this.user = res
         this.userService.setUserInfo(this.user);
+        localStorage.setItem('TMDB-user-info', JSON.stringify(this.user));
       },
       error: err => {
         console.error
@@ -58,13 +61,5 @@ export class SideBarComponent {
     })
   }
 
-  // watcheList() {
-  //   this.userService.getUserWatchList(this.user.id).subscribe({
-  //     next: res => {
-  //       console.log('watch list ', res)
-  //       this.userService.setUserWatchList(res.results)
-  //     },
-  //     error: err => console.error
-  //   })
-  // }
+
 }

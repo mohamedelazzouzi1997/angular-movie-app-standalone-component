@@ -50,7 +50,7 @@ export class ApprovedComponent {
           if (res.success) {
             this.cookieService.set('TMDB-session-id', res.session_id)
             this._toastr.success('session created successfully')
-            window.location.href = `${environment.domain}movies/up-coming`;
+            window.location.href = `${environment.domain}movies/list`;
           }
         },
         error: err => console.error

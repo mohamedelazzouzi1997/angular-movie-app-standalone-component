@@ -1,0 +1,37 @@
+<div class="container mt-6">
+    <div class="max-w-md mx-auto mb-12">
+        <div class="relative flex items-center w-full h-12 rounded-md focus-within:shadow-sm  bg-zinc-800  overflow-hidden">
+            <div class="grid place-items-center h-full w-12 text-gray-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            </div>
+
+            <input autofocus (keyup)="search()" [(ngModel)]="query" autocomplete="off" class="peer h-full border-l-2 border-zinc-950 w-full outline-none text-sm text-gray-300 px-2 bg-zinc-900" type="text" id="search" placeholder="Search something..." />
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4">
+
+        <ng-container *ngFor="let item of data">
+            <app-listing [height]="{'h-[260px] md:h-[260px]':true}" [item]="item" />
+        </ng-container>
+    </div>
+    <nav *ngIf="data.length > 0" class="mt-6 flex justify-between">
+
+        <button [disabled]="page == 1" (click)="previousList(page - 1)" class=" bg-neutral-700 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-700 px-3 py-1 rounded-sm" [ngClass]="{
+            'hover:bg-neutral-100 hover:text-neutral-700 text-neutral-100  shadow-inner':
+              page != 1
+          }">
+         Previous
+        </button>
+
+        <button [disabled]="paginationLength == page" (click)="nextList(page + 1)" class=" bg-neutral-700 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-700 px-3 py-1 rounded-sm " [ngClass]="{
+            'hover:bg-neutral-100 hover:text-neutral-700 text-neutral-100 shadow-inner':
+              paginationLength != page
+          }">
+          Next
+        </button>
+
+    </nav>
+</div>
