@@ -43,7 +43,7 @@ export class SideBarComponent {
 
       this.auth.requestToken().subscribe({
         next: res => {
-          window.location.href = `https://www.themoviedb.org/authenticate/${res.request_token}?redirect_to=https://angular-16-standalone-movie-7jiw0ka2t-mohamedelazzouzi1997.vercel.app/approved`;
+          window.location.href = `https://www.themoviedb.org/authenticate/${res.request_token}?redirect_to=${environment.domain}approved`;
         },
         error: err => console.error
       })
