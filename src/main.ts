@@ -8,6 +8,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { provideToastr } from 'ngx-toastr';
 
+import { inject } from '@vercel/analytics';
+
+inject()
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(BrowserModule, HttpClientModule, CookieService),
