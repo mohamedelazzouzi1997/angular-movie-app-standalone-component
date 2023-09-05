@@ -14,7 +14,7 @@
     <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4">
 
         <ng-container *ngFor="let item of data">
-            <app-listing [height]="{'h-[260px] md:h-[260px]':true}" [item]="item" />
+            <app-listing *ngIf=" item.poster_path" [height]="{'h-[260px] md:h-[260px]':true}" [item]="item" />
         </ng-container>
     </div>
     <nav *ngIf="data.length > 0" class="mt-6 flex justify-between">

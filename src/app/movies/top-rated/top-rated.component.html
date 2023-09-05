@@ -4,7 +4,7 @@
     <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4">
 
         <ng-container *ngFor="let item of data">
-            <app-listing [item]="item" />
+            <app-listing *ngIf=" item.poster_path" [item]="item" />
         </ng-container>
     </div>
     <nav class="mt-6 flex justify-between">
