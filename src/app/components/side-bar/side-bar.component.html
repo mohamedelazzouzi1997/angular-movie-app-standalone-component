@@ -54,9 +54,9 @@
             </a>
         </li>
     </ul>
-    <button *ngIf="!isSessionExist" (click)="login()" class=" hidden md:inline-block py-2 px-6 bg-red-500 hover:bg-blue-600 opacity-100 text-sm text-white font-bold rounded-xl transition duration-200">Sign
+    <button *ngIf="!isSessionExist" (click)="login()" class=" hidden md:inline-block  items-center hover:scale-105 duration-100 ease-in-out space-x-2 py-0.5  group px-3 bg-red-500 hover:bg-zinc-900 hover:text-red-500 border border-red-500 hover:border-red-500 text-zinc-950 rounded-sm">Sign
       up</button>
-    <div *ngIf="isSessionExist" class=" hidden md:flex justify-center space-x-2 items-center">
+    <div *ngIf="isSessionExist " class=" hidden md:flex justify-center space-x-2 items-center">
         <!-- <button mat-raised-button class="bg-yellow-500 rounded-sm px-3 py-1 hover:shadow-inner text-black hover:bg-yellow-600  ">Warn</button> -->
         <span class="text-white">{{ user?.username }}</span>
         <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0.5" aria-label="Example icon-button with a menu">

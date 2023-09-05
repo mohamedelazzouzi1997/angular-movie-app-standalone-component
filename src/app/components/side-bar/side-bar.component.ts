@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment.development';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { filter, map } from 'rxjs';
 @Component({
   selector: 'app-side-bar',
   standalone: true,
@@ -30,9 +31,9 @@ export class SideBarComponent {
   ngOnInit(): void {
     this.isSessionExist = this.cookieService.check('TMDB-session-id')
     this.session_id = this.cookieService.get('TMDB-session-id')
-    if (this.isSessionExist) {
-      this.profile()
-    }
+
+    if (this.isSessionExist)
+      this.getUserInfo()
   }
 
 
@@ -48,18 +49,13 @@ export class SideBarComponent {
     }
   }
 
-  profile() {
-    this.userService.getUserProfile(this.session_id).subscribe({
+  getUserInfo() {
+    this.userService.userInfoSubject$.pipe(
+      filter((userInfo) => userInfo !== undefined),
+    ).subscribe({
       next: res => {
         this.user = res
-        this.userService.setUserInfo(this.user);
-        localStorage.setItem('TMDB-user-info', JSON.stringify(this.user));
-      },
-      error: err => {
-        console.error
-      },
+      }
     })
   }
-
-
 }

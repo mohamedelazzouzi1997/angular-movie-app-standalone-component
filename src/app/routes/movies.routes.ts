@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuardService } from '../guards/auth-guard.service';
 
 export const MOVIES_ROUTES: Routes = [
   {
@@ -59,7 +60,8 @@ export const MOVIES_ROUTES: Routes = [
       ),
   },
   {
-    path: ':username/watchlist', //neeed guard
+    path: ':username/watchlist',
+    canActivate: [AuthGuardService],
     loadComponent: () =>
       import('../movies/watchlist/watchlist.component').then(
         (c) => c.WatchlistComponent
@@ -67,6 +69,7 @@ export const MOVIES_ROUTES: Routes = [
   },
   {
     path: ':username/favourit',
+    canActivate: [AuthGuardService],
     loadComponent: () =>
       import('../movies/favourit/favourit.component').then(
         (c) => c.FavouritComponent

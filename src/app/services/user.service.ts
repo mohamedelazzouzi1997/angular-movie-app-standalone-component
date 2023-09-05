@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -11,19 +11,22 @@ import { environment } from 'src/environments/environment.development';
 export class UserService {
   private apiKey = environment.apiKey;
   private baseUrl = environment.baseUrl;
-  private userInfo: any
   session_id: any
+
+  userInfoSubject$ = new BehaviorSubject<any>(undefined);
+  // public userInfo$: Observable<any> = this.userInfoSubject.asObservable();
+
   constructor(private http: HttpClient, private cookieService: CookieService) {
     this.session_id = this.cookieService.get('TMDB-session-id')
   }
 
 
-  setUserInfo(user: any) {
-    this.userInfo = user
+  setUserInfo(user: any): void {
+    this.userInfoSubject$.next(user);
   }
 
-  getUserInfo() {
-    return this.userInfo
+  getUserInfo(): Observable<any> {
+    return this.userInfoSubject$.value;
   }
 
   getUserProfile(session_id: any): Observable<any> {
