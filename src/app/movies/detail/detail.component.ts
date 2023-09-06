@@ -6,7 +6,7 @@ import { MoviesService } from 'src/app/services/movies.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TrailerModalComponent } from './trailer-modal/trailer-modal.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { PostersModalComponent } from '../posters-modal/posters-modal.component';
 import { ModalVideosComponent } from '../modal-videos/modal-videos.component';
 import { ListingComponent } from 'src/app/components/listing/listing.component';
@@ -25,6 +25,8 @@ export class DetailComponent {
   imageUrlPoster = 'https://image.tmdb.org/t/p/w780';
   imageUrlBg = 'https://image.tmdb.org/t/p/w1280';
   imgProviderUrl = 'https://image.tmdb.org/t/p/w92';
+  rateCount: number = 0
+  arrayStars = Array.from({ length: 10 }, (_, i) => i + 1)
   Director: string = ''
   data: any = [];
   casts: any = []
@@ -42,6 +44,7 @@ export class DetailComponent {
   ImagesBackdrops: any = []
   videos: any = []
   similarMovies: any = []
+  notFound: boolean = false
   //department array
   currentImageUrl: string = '';
   userInfo: any
@@ -51,6 +54,7 @@ export class DetailComponent {
   movieIds: any = []
   constructor(
     private movieService: MoviesService,
+    private router: Router,
     private AuthService: AuthService,
     private dialog: MatDialog,
     private userService: UserService,
@@ -73,6 +77,31 @@ export class DetailComponent {
       this.movieAccountStatus()
     }
 
+  }
+
+  removeRating() {
+    this.movieService.removeRateMovie(this.movieId).subscribe({
+      next: (res) => {
+        this._toastr.success('Movie rated removed successfully')
+        this.rateCount = 0
+      },
+      error: (err) => console.error
+    })
+
+  }
+
+  rating(rate: number) {
+
+    if (rate != this.movieStatus.rated?.value) {
+      this.movieStatus.rated = { "value": rate }
+      this.movieService.rateMovie(this.movieId, this.movieStatus.rated.value).subscribe({
+        next: res => {
+          this.rateCount = rate
+          this._toastr.success('Movie rated successfully')
+        },
+        error: err => console.error
+      })
+    }
   }
 
   addToWatch() {
@@ -162,6 +191,10 @@ export class DetailComponent {
     this.movieService.movieAccountStatus(this.movieId).subscribe({
       next: (res) => {
         this.movieStatus = res
+        if (this.movieStatus.rated)
+          this.rateCount = this.movieStatus.rated.value
+        else
+          this.rateCount = 0
       },
       error: (err) => console.error,
     });
@@ -176,9 +209,12 @@ export class DetailComponent {
     this.movieService.getMovieDetails(this.movieId).subscribe({
       next: (res) => {
         this.data = res;
-
       },
-      error: (err) => console.error,
+      error: (err) => {
+        this.notFound = true
+
+        // this.router.navigate(['not-found'])
+      },
     });
   }
 
@@ -198,7 +234,7 @@ export class DetailComponent {
       next: (res) => {
         this.similarMovies = res.results.filter((item: { poster_path: any }) => {
           return item.poster_path;
-        }).slice(0, 10)
+        }).slice(0, 14)
       },
       error: (err) => console.error,
     });

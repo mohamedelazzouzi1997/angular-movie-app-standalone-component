@@ -16,9 +16,10 @@ import { CookieService } from 'ngx-cookie-service';
   imports: [RouterOutlet, SideBarComponent, RightSideBarComponent],
 })
 export class AppComponent {
-
+  user: any
   isSessionExist: boolean = false
   session_id: string = ''
+
   constructor(private userService: UserService, private cookieService: CookieService) {
 
   }
@@ -32,16 +33,40 @@ export class AppComponent {
 
   }
 
+
+
   profile() {
     this.userService.getUserProfile(this.session_id).subscribe({
       next: res => {
-        const user: any = res
-        this.userService.setUserInfo(user);
-        localStorage.setItem('TMDB-user-info', JSON.stringify(user));
+        this.user = res
+        this.userService.setUserInfo(this.user);
+        localStorage.setItem('TMDB-user-info', JSON.stringify(this.user));
       },
       error: err => {
         console.error
       },
+      complete: () => {
+        this.watcheList()
+        this.favoritList()
+      }
+    })
+  }
+
+  watcheList() {
+    this.userService.getUserWatchList(this.user.id).subscribe({
+      next: res => {
+        this.userService.setWatchList(res)
+      },
+      error: err => console.error
+    })
+  }
+
+  favoritList() {
+    this.userService.getUserfavoriteList(this.user.id).subscribe({
+      next: res => {
+        this.userService.setfavoriteList(res)
+      },
+      error: err => console.error
     })
   }
 }

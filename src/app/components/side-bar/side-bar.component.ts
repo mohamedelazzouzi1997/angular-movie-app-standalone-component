@@ -22,7 +22,10 @@ export class SideBarComponent {
   isSessionExist: boolean = false
   session_id: any
   user: any
-
+  userWatchList: any
+  userfavoritList: any
+  total_watchList: number = 0
+  total_favorit: number = 0
   constructor(private auth: AuthService, private cookieService: CookieService, private userService: UserService) {
 
   }
@@ -31,7 +34,8 @@ export class SideBarComponent {
   ngOnInit(): void {
     this.isSessionExist = this.cookieService.check('TMDB-session-id')
     this.session_id = this.cookieService.get('TMDB-session-id')
-
+    this.getUserWatchList()
+    this.getUserFavoritList()
     if (this.isSessionExist)
       this.getUserInfo()
   }
@@ -47,6 +51,34 @@ export class SideBarComponent {
         error: err => console.error
       })
     }
+  }
+
+  getUserWatchList() {
+    this.userService.userWatchList$.pipe(
+      filter(watchList => watchList !== undefined)
+    ).subscribe({
+      next: res => {
+        this.userWatchList = res
+        this.total_watchList = res.total_results
+      },
+      error: err => {
+        console.error
+      }
+    })
+  }
+
+  getUserFavoritList() {
+    this.userService.userLike$.pipe(
+      filter(favoritList => favoritList !== undefined)
+    ).subscribe({
+      next: res => {
+        this.userfavoritList = res
+        this.total_favorit = res.total_results
+      },
+      error: err => {
+        console.error
+      }
+    })
   }
 
   getUserInfo() {

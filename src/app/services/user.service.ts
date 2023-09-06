@@ -14,7 +14,8 @@ export class UserService {
   session_id: any
 
   userInfoSubject$ = new BehaviorSubject<any>(undefined);
-  // public userInfo$: Observable<any> = this.userInfoSubject.asObservable();
+  userWatchList$ = new BehaviorSubject<any>(undefined);
+  userLike$ = new BehaviorSubject<any>(undefined);
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
     this.session_id = this.cookieService.get('TMDB-session-id')
@@ -37,7 +38,11 @@ export class UserService {
     return this.http.get(url, options);
   }
 
-  getUserWatchList(account_id: number, page: any): Observable<any> {
+  setWatchList(watchList: any): void {
+    this.userWatchList$.next(watchList);
+  }
+
+  getUserWatchList(account_id: number, page: any = 1): Observable<any> {
     const url = `${this.baseUrl}/account/${account_id}/watchlist/movies`;
     const options = {
       params: new HttpParams().set('api_key', this.apiKey).set('session_id', this.session_id).set('page', page),
@@ -45,7 +50,11 @@ export class UserService {
     return this.http.get(url, options);
   }
 
-  getUserfavoriteList(account_id: number, page: any): Observable<any> {
+  setfavoriteList(favoritList: any): void {
+    this.userLike$.next(favoritList);
+  }
+
+  getUserfavoriteList(account_id: number, page: any = 1): Observable<any> {
     const url = `${this.baseUrl}/account/${account_id}/favorite/movies`;
     const options = {
       params: new HttpParams().set('api_key', this.apiKey).set('session_id', this.session_id).set('page', page),

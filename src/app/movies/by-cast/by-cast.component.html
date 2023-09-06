@@ -4,10 +4,10 @@
         <div class="grid grid-cols-1">
             <img [src]="imageUrlPoster + castDetails?.profile_path" class="rounded-md border" alt="" />
         </div>
-        <div class=" md:col-span-3 grid grid-cols-2 md:grid-cols-5  gap-3">
+        <div class=" md:col-span-3 grid grid-cols-2 md:grid-cols-6  gap-3">
 
             <ng-container *ngFor="let item of data">
-                <app-listing [height]="{'h-[260px] md:h-[200px]':true}" *ngIf="item.poster_path" [item]="item" />
+                <app-listing *ngIf="item.poster_path" [item]="item" />
             </ng-container>
         </div>
 

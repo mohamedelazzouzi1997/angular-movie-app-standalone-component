@@ -193,4 +193,24 @@ export class MoviesService {
     };
     return this.http.get(url, options);
   }
+
+
+  rateMovie(movie_id: number, rate: number): Observable<any> {
+    const url = `${this.baseUrl}/movie/${movie_id}/rating`;
+    const options = {
+      params: new HttpParams().set('api_key', this.apiKey).set('session_id', this.session_id),
+    };
+    return this.http.post(url, {
+      "value": rate
+    }, options);
+  }
+
+  removeRateMovie(movie_id: number): Observable<any> {
+    const url = `${this.baseUrl}/movie/${movie_id}/rating`;
+    const options = {
+      params: new HttpParams().set('api_key', this.apiKey).set('session_id', this.session_id),
+    };
+    return this.http.delete(url, options);
+  }
+
 }

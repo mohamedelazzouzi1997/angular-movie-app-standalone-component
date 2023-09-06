@@ -9,3 +9,18 @@
     -webkit-box-shadow: 0px 0px 0px 0px rgba(9, 9, 11, 1) inset, 0px 0px 20px 0px rgba(9, 9, 11, 1) inset, 0px 0px 51px 61px rgba(9, 9, 11, 1) inset, 0px 0px 20px 0px rgba(9, 9, 11, 1) inset;
     -moz-box-shadow: 0px 0px 0px 0px rgba(9, 9, 11, 1) inset, 0px 0px 20px 0px rgba(9, 9, 11, 1) inset, 0px 0px 51px 61px rgba(9, 9, 11, 1) inset, 0px 0px 20px 0px rgba(9, 9, 11, 1) inset;
 }
+
+.avaliacao .star {
+    filter: saturate(0) brightness(2);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.avaliacao:hover .star,
+.avaliacao .star.ranked {
+    filter: saturate(1) brightness(1);
+}
+
+.avaliacao .star:hover~.star {
+    filter: saturate(0) brightness(2);
+}

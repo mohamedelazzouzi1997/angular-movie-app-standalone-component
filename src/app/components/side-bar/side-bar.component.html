@@ -66,14 +66,14 @@
           <img *ngIf="user?.avatar.tmdb.avatar_path" [src]="profileURL + user?.avatar.tmdb.avatar_path"
             class="rounded-full inline border w-[50px] h-[50px]">
         </button>
-        <mat-menu #menu="matMenu" class="bg-neutral-700">
-            <a routerLink="/movies/{{ user?.username }}/watchlist" mat-menu-item>
-                <mat-icon> format_list_bulleted</mat-icon>
-                <span>  WatchList</span>
+        <mat-menu #menu="matMenu" class="zinc">
+            <a class="text-white items" routerLink="/movies/{{ user?.username }}/watchlist" mat-menu-item>
+                <!-- <mat-icon> format_list_bulleted</mat-icon> -->
+                <span class="text-white "> Your WatchList ({{ total_watchList }})</span>
             </a>
-            <a routerLink="/movies/{{ user?.username }}/favourit" mat-menu-item>
-                <mat-icon>favorite</mat-icon>
-                <span>Likes</span>
+            <a class="text-white items" routerLink="/movies/{{ user?.username }}/favourit" mat-menu-item>
+                <!-- <mat-icon>favorite</mat-icon> -->
+                <span class="text-white ">Your Likes ({{ total_favorit }})</span>
             </a>
         </mat-menu>
     </div>

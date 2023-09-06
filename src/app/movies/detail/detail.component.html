@@ -1,10 +1,10 @@
-<div class="relative ">
+<div *ngIf="!notFound" class="relative ">
     <div class="absolute top-0 bottom-0 right-0 left-0 z-10 img-shadow ">
 
     </div>
     <img class="h-[300px] w-full  " [src]="imageUrlBg + data?.backdrop_path" alt="">
 </div>
-<div class="container ">
+<div *ngIf="!notFound" class="container " #text>
 
     <div class="grid grid-cols-1 md:grid-cols-4 relative">
         <div class="md:px-8 pt-[10px]">
@@ -27,6 +27,16 @@
                         WatchList
                     </span>
                     <button (click)="addToWatchList() " class="rounded-sm text-white border hover:bg-blue-500 text-xs w-[30px] h-[30px] " [ngClass]="{ 'bg-blue-500': movieStatus?.watchlist} "><i class="fa-solid fa-clock "></i></button>
+                </div>
+                <div class="flex">
+
+                    <button *ngIf="rateCount > 0" class="mr-1" (click)="removeRating()"><i class="fa-solid fa-xmark text-red-500"></i></button>
+                    <div class="avaliacao flex">
+                        <ng-container *ngFor="let item of arrayStars">
+                            <button (click)="rating(item)" [ngClass]="{'ranked': rateCount >= item }" class="star">
+                        <img class="w-[20px]" src="../../../assets/star.png" alt="star icon"></button>
+                        </ng-container>
+                    </div>
                 </div>
             </div>
             <img class="border w-full mx-auto " [src]="imageUrlPoster + data?.poster_path " alt=" ">
@@ -250,11 +260,14 @@
                 <span class="uppercase ">Similar MOVIES</span>
                 <span class="uppercase float-right underline hover:text-red-500 "><a routerLink="/movies/similare/{{ castNameSlug(data.original_title) }}/{{ data.id }} ">SHOW ALL</a></span>
             </div>
-            <div *ngIf="similarMovies.length " class="grid grid-cols-2 md:grid-cols-5 gap-2 ml-2 mt-4 ">
+            <div *ngIf="similarMovies.length " class="grid grid-cols-2 md:grid-cols-7 gap-2 ml-2 mt-4 ">
                 <ng-container *ngFor="let item of similarMovies ">
-                    <app-listing (click)="changeMovieId(item.id) " [height]="{'h-[260px] md:h-[200px]':true}" *ngIf="item.poster_path " [item]="item " />
+                    <app-listing (click)="changeMovieId(item.id) " *ngIf="item.poster_path " [item]="item " />
                 </ng-container>
 
             </div>
         </div>
+
     </div>
+
+</div>
