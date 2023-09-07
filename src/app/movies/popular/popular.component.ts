@@ -31,15 +31,12 @@ export class PopularComponent {
 
     this.movieService.getPopular(page).subscribe({
       next: (res) => {
-        console.log('res', res);
         this.data = res.results;
         this.paginationLength = res.total_pages;
       },
       error: (err) => {
-        console.log('err', err);
       },
       complete: () => {
-        this.changeParam(this.page);
       },
     });
   }

@@ -40,7 +40,7 @@ export class MoviesService {
     };
     return this.http.get(url, options);
   }
-  getPopular(page: number): Observable<any> {
+  getPopular(page: number = 1): Observable<any> {
     const url = `${this.baseUrl}/movie/popular`;
     const options = {
       params: new HttpParams().set('api_key', this.apiKey).set('page', page),

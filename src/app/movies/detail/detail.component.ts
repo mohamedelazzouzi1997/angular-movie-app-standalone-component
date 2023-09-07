@@ -233,7 +233,7 @@ export class DetailComponent {
     this.movieService.getSimilareMovies(this.movieId).subscribe({
       next: (res) => {
         this.similarMovies = res.results.filter((item: { poster_path: any }) => {
-          return item.poster_path;
+          return item.poster_path != null;
         }).slice(0, 14)
       },
       error: (err) => console.error,

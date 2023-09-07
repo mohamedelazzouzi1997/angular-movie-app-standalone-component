@@ -15,6 +15,11 @@ export class ListingComponent {
   imageUrlPoster = 'https://image.tmdb.org/t/p/w780';
 
 
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+  }
+
   isWatched(movieId: number): boolean {
     const movieIds: any[] = this.getIdsFromLocalStorage()
     const isWatched = movieIds.includes(movieId.toString())
