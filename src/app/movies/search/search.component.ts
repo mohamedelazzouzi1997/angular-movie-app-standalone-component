@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListingComponent } from 'src/app/components/listing/listing.component';
-import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MoviesService } from 'src/app/services/movies.service';
 import { FormsModule } from '@angular/forms';
-
+import * as _ from "lodash";
 @Component({
   selector: 'app-search',
   standalone: true,
@@ -33,8 +32,8 @@ export class SearchComponent {
     // this.query = event.value
     this.movieService.search(this.query, page).subscribe({
       next: (res) => {
-        console.log('res', res);
-        this.data = res.results;
+        this.data = _.filter(res.results, item => item.poster_path != null);
+
       },
       error: (err) => {
         console.log('err', err);

@@ -1,4 +1,4 @@
-<div class="relative group hover:scale-[1.02] duration-200  flex justify-center ">
+<div *ngIf="item.poster_path" class="relative group hover:scale-[1.02] duration-200  flex justify-center ">
     <span *ngIf="isFavourit(item.id)" class="bg-neutral-400">
         <i class="fa-solid fa-heart text-red-500 absolute top-[-13px] right-[-10px] text-xl z-30"></i>
     </span>
