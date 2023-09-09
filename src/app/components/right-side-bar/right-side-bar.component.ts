@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MoviesService } from 'src/app/services/movies.service';
 import * as _ from "lodash";
@@ -12,7 +12,9 @@ import { RouterLink } from '@angular/router';
 })
 export class RightSideBarComponent {
   result: any
-  data: any = []
+  newestResult: any
+  popularData: any[] = []
+  newestData: any[] = []
   movieGenra: any = []
   imageUrlPoster = 'https://image.tmdb.org/t/p/w780';
   genraList = [
@@ -38,12 +40,30 @@ export class RightSideBarComponent {
   ]
   constructor(
     private movieService: MoviesService,
+    private cdr: ChangeDetectorRef
   ) { }
   ngOnInit() {
     this.getPopular();
+    this.getNewest()
     setInterval(() => {
-      this.data = _.sampleSize(this.result, 4)
+      this.popularData = _.sampleSize(this.result, 4)
+      this.newestData = _.sampleSize(this.newestResult, 4)
     }, 5000);
+  }
+
+  getNewest() {
+
+    this.movieService.getMovieLists().subscribe({
+      next: (res) => {
+        this.newestResult = res.results
+        this.newestData = _.sampleSize(res.results, 4)
+
+      },
+      error: (err) => {
+        console.log('err', err);
+      },
+
+    });
   }
 
   getPopular() {
@@ -51,7 +71,7 @@ export class RightSideBarComponent {
     this.movieService.getPopular().subscribe({
       next: (res) => {
         this.result = res.results
-        this.data = _.sampleSize(res.results, 4)
+        this.popularData = _.sampleSize(res.results, 4)
 
       },
       error: (err) => {

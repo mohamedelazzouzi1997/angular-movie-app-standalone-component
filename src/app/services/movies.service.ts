@@ -17,7 +17,7 @@ export class MoviesService {
   }
 
 
-  getMovieLists(page: number): Observable<any> {
+  getMovieLists(page: number = 1): Observable<any> {
     const url = `${this.baseUrl}/movie/now_playing`;
     const options = {
       params: new HttpParams().set('api_key', this.apiKey).set('page', page),
