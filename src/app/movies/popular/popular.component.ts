@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MoviesService } from 'src/app/services/movies.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ListingComponent } from 'src/app/components/listing/listing.component';
+import * as _ from 'lodash'
 
 @Component({
   selector: 'app-popular',
@@ -15,6 +16,7 @@ export class PopularComponent {
   data: any = [];
   page: number = 1;
   paginationLength: any;
+  order: boolean = false
 
   constructor(
     private movieService: MoviesService,
@@ -25,7 +27,11 @@ export class PopularComponent {
   ngOnInit() {
     this.getPopular(this.page);
   }
-
+  sort(buttonClicked: boolean = false) {
+    if (buttonClicked)
+      this.order = !this.order
+    this.data = _.orderBy(this.data, ['vote_average'], this.order ? ['asc'] : ['desc'])
+  }
   getPopular(page: number) {
     this.page = page;
 
@@ -33,6 +39,8 @@ export class PopularComponent {
       next: (res) => {
         this.data = res.results;
         this.paginationLength = res.total_pages;
+        this.sort()
+
       },
       error: (err) => {
       },

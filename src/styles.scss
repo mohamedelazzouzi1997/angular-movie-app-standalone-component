@@ -6,21 +6,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 html,
 body {
-    height: 100%;
-    font-family: var(--font-family);
+  height: 100%;
+  font-family: var(--font-family);
 }
 
 body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .active-link {
-    @apply text-white font-semibold
+  @apply text-red-500 font-bold
 }
 
 .icon-active-link {
-    @apply fill-red-600
+  @apply fill-red-600
 }

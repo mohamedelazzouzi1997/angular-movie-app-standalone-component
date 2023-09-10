@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ListingComponent } from 'src/app/components/listing/listing.component';
 import { MoviesService } from 'src/app/services/movies.service';
+import * as _ from 'lodash'
 
 @Component({
   selector: 'app-up-coming',
@@ -15,6 +16,7 @@ export class UpComingComponent {
   data: any = [];
 
   page: number = 1;
+  order: boolean = false
 
   paginationLength: any;
 
@@ -24,7 +26,11 @@ export class UpComingComponent {
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) { }
-
+  sort(buttonClicked: boolean = false) {
+    if (buttonClicked)
+      this.order = !this.order
+    this.data = _.orderBy(this.data, ['vote_average'], this.order ? ['asc'] : ['desc'])
+  }
   ngOnInit() {
     this.getMovieUpComing(this.page);
   }
@@ -34,9 +40,10 @@ export class UpComingComponent {
 
     this.movieService.getMovieUpComing(page).subscribe({
       next: (res) => {
-        console.log('res', res);
         this.data = res.results;
         this.paginationLength = res.total_pages;
+        this.sort()
+
       },
       error: (err) => {
         console.log('err', err);

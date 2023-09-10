@@ -17,6 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
+                        "allowedCommonJsDependencies": ["lodash"],
                         "outputPath": "dist/angular-movie-series-app",
                         "index": "src/index.html",
                         "main": "src/main.ts",

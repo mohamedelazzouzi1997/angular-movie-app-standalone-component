@@ -41,6 +41,8 @@ export class SideBarComponent {
   }
 
 
+
+
   login() {
     const isSessionExist = this.cookieService.check('TMDB-session-id')
     if (!isSessionExist) {

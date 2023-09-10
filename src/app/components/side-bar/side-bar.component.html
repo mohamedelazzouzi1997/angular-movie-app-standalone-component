@@ -1,5 +1,5 @@
 <!-- </aside> -->
-<nav class=" z-50 sticky top-0 right-0 left-0 px-24 py-4 flex justify-between items-center bg-zinc-950  shadow-xl">
+<nav class=" z-50 sticky top-0 right-0 left-0 px-24 py-4 flex justify-between items-center  bg-zinc-50 dark:bg-zinc-950  shadow-xl">
     <a class="text-3xl flex justify-center items-center font-bold leading-none" routerLink="/movies/list">
         <svg class="inline" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="45" height="45" viewBox="0,0,256,256">
       <g fill="#e60000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"
@@ -12,7 +12,7 @@
         </g>
       </g>
     </svg>
-        <span class="  tracking-wide text-white">
+        <span class="  tracking-wide text-zinc-950 dark:text-zinc-50">
       MMovie<span class="text-red-600">.</span>
         </span>
     </a>
@@ -23,59 +23,70 @@
       </svg>
     </button>
     </div>
-    <ul class="hidden text-lg space-x-4 text-neutral-400 font-sans font-bold uppercase absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
+    <ul class="hidden text-lg space-x-4 dark:text-zinc-50 text-zinc-950 font-sans font-bold uppercase absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
+
         <li>
-            <a class="flex items-center space-x-2 py-1 group hover:scale-105 duration-300 ease-in-out  text-white hover:text-red-500" routerLink="/movies/list" routerLinkActive="active-link">
+            <a class="flex items-center space-x-2 py-1 group hover:scale-105 duration-300 ease-in-out  hover:text-red-500" routerLink="/movies/list" routerLinkActive="active-link">
                 <span>Newest</span>
             </a>
         </li>
 
         <li>
-            <a class="flex items-center space-x-2 py-1 group hover:scale-105 duration-300 ease-in-out  text-white hover:text-red-500" routerLink="/movies/popular" routerLinkActive="active-link">
+            <a class="flex items-center space-x-2 py-1 group hover:scale-105 duration-300 ease-in-out  hover:text-red-500" routerLink="/movies/popular" routerLinkActive="active-link">
                 <span>Popular</span>
             </a>
         </li>
 
         <li>
-            <a class="flex items-center space-x-2 py-1 group hover:scale-105 duration-300 ease-in-out  text-white hover:text-red-500" routerLink="/movies/top-rated" routerLinkActive="active-link">
+            <a class="flex items-center space-x-2 py-1 group hover:scale-105 duration-300 ease-in-out  hover:text-red-500" routerLink="/movies/top-rated" routerLinkActive="active-link">
                 <span>Top Rated</span>
             </a>
         </li>
 
         <li>
-            <a class="flex items-center space-x-2 py-1 group hover:scale-105 duration-300 ease-in-out  text-white hover:text-red-500" routerLink="/movies/up-coming" routerLinkActive="active-link">
+            <a class="flex items-center space-x-2 py-1 group hover:scale-105 duration-300 ease-in-out  hover:text-red-500" routerLink="/movies/up-coming" routerLinkActive="active-link">
 
                 <span>Coming Soon</span>
             </a>
         </li>
         <li>
-            <a class="flex items-center hover:scale-105 duration-100 ease-in-out space-x-2 py-0.5  group px-3 bg-yellow-500 hover:bg-zinc-900 hover:text-yellow-500 border border-yellow-500 hover:border-yellow-500 text-zinc-950 rounded-sm " routerLink="/movies/search">
+            <a class="flex items-center hover:scale-105 duration-100 ease-in-out space-x-2 py-0.5  group px-3 bg-yellow-400 hover:bg-zinc-900 hover:text-yellow-400 border border-yellow-400 hover:border-yellow-400 text-zinc-950 rounded-sm " routerLink="/movies/search">
                 <span>Search</span>
             </a>
         </li>
+
     </ul>
-    <button *ngIf="!isSessionExist" (click)="login()" class=" hidden md:inline-block  items-center hover:scale-105 duration-100 ease-in-out space-x-2 py-0.5  group px-3 bg-red-500 hover:bg-zinc-900 hover:text-red-500 border border-red-500 hover:border-red-500 text-zinc-950 rounded-sm">Sign
-      up</button>
-    <div *ngIf="isSessionExist " class=" hidden md:flex justify-center space-x-2 items-center">
-        <!-- <button mat-raised-button class="bg-yellow-500 rounded-sm px-3 py-1 hover:shadow-inner text-black hover:bg-yellow-600  ">Warn</button> -->
-        <span class="text-white">{{ user?.username }}</span>
-        <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0.5" aria-label="Example icon-button with a menu">
+
+    <div class=" hidden md:flex justify-center space-x-2 items-center">
+        <div>
+            <button id="theme-toggle" type="button" class=" text-zinc-950 dark:text-zinc-50 dark:hover:text-zinc-950 hover:text-zinc-50 hover:bg-zinc-950 dark:hover:bg-zinc-50 rounded-full dark:bg-zinc-800 bg-zinc-300 duration-500  ease-in-out text-sm p-2.5">
+                <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+            </button>
+
+        </div>
+        <button *ngIf="!isSessionExist" (click)="login()" class=" hidden md:inline-block  items-center hover:scale-105 duration-100 ease-in-out space-x-2 py-0.5  group px-3 bg-red-500 hover:bg-zinc-900 hover:text-red-500 border border-red-500 hover:border-red-500 text-zinc-950 rounded-sm">Sign
+        up</button>
+        <div *ngIf="isSessionExist " class="space-x-2">
+            <span class="dark:text-zinc-50  text-zinc-950 font-semibold ">{{ user?.username }}</span>
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="p-0.5" aria-label="Example icon-button with a menu">
           <img *ngIf="!user?.avatar.tmdb.avatar_path"
             [src]="'https://ui-avatars.com/api/?name='+ user?.username +'?background=17171A&color=93090A'"
             class="rounded-full inline border w-[50px] h-[50px]">
           <img *ngIf="user?.avatar.tmdb.avatar_path" [src]="profileURL + user?.avatar.tmdb.avatar_path"
             class="rounded-full inline border w-[50px] h-[50px]">
         </button>
-        <mat-menu #menu="matMenu" class="zinc">
-            <a class="text-white items" routerLink="/movies/{{ user?.username }}/watchlist" mat-menu-item>
-                <!-- <mat-icon> format_list_bulleted</mat-icon> -->
-                <span class="text-white "> Your WatchList ({{ total_watchList }})</span>
-            </a>
-            <a class="text-white items" routerLink="/movies/{{ user?.username }}/favourit" mat-menu-item>
-                <!-- <mat-icon>favorite</mat-icon> -->
-                <span class="text-white ">Your Likes ({{ total_favorit }})</span>
-            </a>
-        </mat-menu>
+            <mat-menu #menu="matMenu" class="zinc">
+                <a class="text-white items" routerLink="/movies/{{ user?.username }}/watchlist" mat-menu-item>
+                    <!-- <mat-icon> format_list_bulleted</mat-icon> -->
+                    <span class="text-white "> Your WatchList ({{ total_watchList }})</span>
+                </a>
+                <a class="text-white items" routerLink="/movies/{{ user?.username }}/favourit" mat-menu-item>
+                    <!-- <mat-icon>favorite</mat-icon> -->
+                    <span class="text-white ">Your Likes ({{ total_favorit }})</span>
+                </a>
+            </mat-menu>
+        </div>
     </div>
 </nav>
 <div class="navbar-menu relative z-50 hidden">

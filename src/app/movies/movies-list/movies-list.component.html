@@ -1,5 +1,14 @@
 <div class="container mt-6">
-    <h1 class="font-[bolder] text-red-900">NEWEST MOVIES</h1>
+    <div class="flex justify-between">
+        <h1 class="font-[bolder] text-zinc-950 dark:text-zinc-50 italic">NEWEST MOVIES</h1>
+        <button (click)="sort(true)" class="text-white underline hover:text-red-500 px-3 py-1 rounded-sm">
+          Sort by rate
+          <i *ngIf="!order" class="fa-solid fa-arrow-up-wide-short"></i>
+          <i *ngIf="order" class="fa-solid fa-arrow-up-short-wide"></i>
+        </button>
+
+    </div>
+
     <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4">
         <ng-container *ngFor="let item of data">
             <app-listing *ngIf=" item.poster_path" [item]="item" />

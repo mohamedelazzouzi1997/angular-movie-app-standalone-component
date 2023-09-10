@@ -1,5 +1,8 @@
 <div *ngIf="!notFound" class="relative ">
-    <div class="absolute top-0 bottom-0 right-0 left-0 z-10 img-shadow ">
+    <div class="absolute top-0 bottom-0 right-0 left-0 z-10 hidden dark:block img-shadow ">
+
+    </div>
+    <div class="absolute top-0 bottom-0 right-0 left-0 z-10 dark:hidden img-shadow-light ">
 
     </div>
     <img class="h-[300px] w-full  " [src]="imageUrlBg + data?.backdrop_path" alt="">
@@ -10,30 +13,30 @@
         <div class="md:px-8 pt-[10px]">
             <div *ngIf="isAuthenticated" class="flex-col space-y-2 justify-end items-center absolute top-[-130px] md:top-[-40px] z-30 right-0 ">
 
-                <div class="text-center flex justify-end space-x-2 text-white items-center ">
+                <div class="text-center flex justify-end space-x-2 text-zinc-950 dark:text-zinc-50 items-center ">
                     <span>
                   Watch
                 </span>
-                    <button (click)="isWatched ? removeFromWatch() : addToWatch()" class=" rounded-sm text-white border hover:bg-green-500 text-xs w-[30px] h-[30px] " [ngClass]="{'bg-green-500': isWatched}"><i class="fa-solid fa-eye "></i></button>
+                    <button (click)="isWatched ? removeFromWatch() : addToWatch()" class=" rounded-sm text-zinc-950 dark:text-zinc-50 border hover:bg-green-500 text-xs w-[30px] h-[30px] " [ngClass]="{'bg-green-500': isWatched}"><i class="fa-solid fa-eye "></i></button>
                 </div>
-                <div class="text-center flex justify-end space-x-2 text-white items-center ">
+                <div class="text-center flex justify-end space-x-2 text-zinc-950 dark:text-zinc-50 items-center ">
                     <span>
                         Like
                     </span>
-                    <button (click)=" addToFavouritList()" class=" rounded-sm text-white border hover:bg-red-500 text-xs w-[30px] h-[30px] " [ngClass]="{ 'bg-red-500': movieStatus?.favorite} "><i class="fa-solid fa-heart "></i></button>
+                    <button (click)=" addToFavouritList()" class=" rounded-sm text-zinc-950 dark:text-zinc-50 border hover:bg-red-500 text-xs w-[30px] h-[30px] " [ngClass]="{ 'bg-red-500': movieStatus?.favorite} "><i class="fa-solid fa-heart "></i></button>
                 </div>
-                <div class="text-center flex justify-end space-x-2 text-white items-center ">
+                <div class="text-center flex justify-end space-x-2 text-zinc-950 dark:text-zinc-50 items-center ">
                     <span>
                         WatchList
                     </span>
-                    <button (click)="addToWatchList() " class="rounded-sm text-white border hover:bg-blue-500 text-xs w-[30px] h-[30px] " [ngClass]="{ 'bg-blue-500': movieStatus?.watchlist} "><i class="fa-solid fa-clock "></i></button>
+                    <button (click)="addToWatchList() " class="rounded-sm text-zinc-950 dark:text-zinc-50 border hover:bg-blue-500 text-xs w-[30px] h-[30px] " [ngClass]="{ 'bg-blue-500': movieStatus?.watchlist} "><i class="fa-solid fa-clock "></i></button>
                 </div>
                 <div class="flex">
                     <button *ngIf="rateCount > 0" class="mr-1" (click)="removeRating()"><i class="fa-solid fa-xmark text-red-500"></i></button>
-                    <div class="avaliacao flex">
+                    <div class="avaliacao flex bg-zinc-950 rounded-md py-2 px-3">
                         <ng-container *ngFor="let item of arrayStars">
-                            <button (click)="rating(item)" [ngClass]="{'ranked': rateCount >= item }" class="star">
-                        <img class="w-[20px]" src="../../../assets/star.png" alt="star icon"></button>
+                            <button (click)="rating(item)" [ngClass]="{'ranked': rateCount >= item }" class="star hover:scale-125 duration-200 ease-in-out">
+                              <img class="w-[20px] " src="../../../assets/star.png" alt="star icon"></button>
                         </ng-container>
                     </div>
                 </div>
@@ -67,17 +70,17 @@
                     ></path>
                   </g>
                 </svg>
-                <span class="text-white text-xs ml-1 ">{{ data?.vote_average?.toFixed(1) }}
+                <span class="text-zinc-950 dark:text-zinc-50 text-xs ml-1 ">{{ data?.vote_average?.toFixed(1) }}
                   <span class="fa fa-star text-yellow-500 text-xs "></span> | Votes : {{ data?.vote_count }}
                 </span>
             </div>
             <div class=" mt-3 border text-sm ">
-                <div class="bg-neutral-600 text-white w-full text-center py-1.5 px-2 flex justify-between ">
+                <div class="bg-neutral-600 text-zinc-50 dark:text-zinc-50 w-full text-center py-1.5 px-2 flex justify-between ">
                     Where to watch
                     <button (click)="openTrailer() " class="bg-transparent rounded-sm hover:text-neutral-700 "><i class="fa-solid fa-circle-play hover:text-neutral-700 "></i> Trailer</button>
                 </div>
                 <ng-container *ngFor="let provider of providers.buy ">
-                    <div *ngIf="provider?.logo_path " class="bg-neutral-900 border-t text-white w-full text-center py-1.5 px-2 flex justify-between items-center ">
+                    <div *ngIf="provider?.logo_path " class="bg-neutral-900 border-t text-zinc-50  w-full text-center py-1.5 px-2 flex justify-between items-center ">
                         <div class="text-xs ">{{ provider?.provider_name }}</div>
                         <img class="w-[30px] rounded-lg border " [src]="imgProviderUrl + provider?.logo_path " alt=" ">
                     </div>
@@ -86,26 +89,26 @@
             </div>
         </div>
         <div class="md:col-span-3 ">
-            <div class="text-white font-sans md:space-x-2 ">
+            <div class="text-zinc-950 dark:text-zinc-50 font-sans md:space-x-2 ">
                 <div class="title-font text-4xl font-extrabold ">{{ data.original_title }}
 
                 </div>
-                <div class=" text-sm text-gray-200 font-semibold ">
-                    <span class="font-sans text-neutral-300 text-sm font-medium ">Directed by </span> <span class="font-sans underline text-red-100 text-sm font-medium ">{{ Director }}</span>
+                <div class=" text-sm text-zinc-950 dark:text-zinc-50 font-semibold ">
+                    <span class="font-sans text-neutral-950 dark:text-zinc-50 text-sm font-medium ">Directed by </span> <span class="font-sans underline text-red-500 text-sm font-medium ">{{ Director }}</span>
                 </div>
-                <div class=" text-xs text-gray-200 font-semibold "> <span class="text-red-500 font-semibold italic text-lg ">Release Date : </span> {{ data?.release_date | date:'fullDate' }}</div>
-                <div class=" text-xs text-gray-200 font-semibold "> <span class="text-red-500 font-semibold italic text-lg ">Status : </span> {{ data?.status }}</div>
-                <div class=" text-xs text-gray-200 font-semibold "> <span class="text-red-500 font-semibold italic text-lg ">Budget : </span> {{ data?.budget |currency }} </div>
-                <div class=" text-xs text-gray-200 font-semibold "> <span class="text-red-500 font-semibold italic text-lg ">Revenue : </span> {{ data?.revenue |currency }} </div>
-                <div class=" text-xs text-gray-200 font-semibold "> <span class="text-red-500 font-semibold italic text-lg ">Duration : </span> {{ data?.runtime }} Min</div>
-                <div class=" text-xs text-gray-200 font-semibold "> <span class="text-red-500 font-semibold italic text-lg ">Genres : </span>
+                <div class=" text-xs text-zinc-950 dark:text-zinc-50 font-semibold "> <span class="text-red-500 font-semibold italic text-lg ">Release Date : </span> {{ data?.release_date | date:'fullDate' }}</div>
+                <div class=" text-xs text-zinc-950 dark:text-zinc-50 font-semibold "> <span class="text-red-500 font-semibold italic text-lg ">Status : </span> {{ data?.status }}</div>
+                <div class=" text-xs text-zinc-950 dark:text-zinc-50 font-semibold "> <span class="text-red-500 font-semibold italic text-lg ">Budget : </span> {{ data?.budget |currency }} </div>
+                <div class=" text-xs text-zinc-950 dark:text-zinc-50 font-semibold "> <span class="text-red-500 font-semibold italic text-lg ">Revenue : </span> {{ data?.revenue |currency }} </div>
+                <div class=" text-xs text-zinc-950 dark:text-zinc-50 font-semibold "> <span class="text-red-500 font-semibold italic text-lg ">Duration : </span> {{ data?.runtime }} Min</div>
+                <div class=" text-xs text-zinc-950 dark:text-zinc-50 font-semibold "> <span class="text-red-500 font-semibold italic text-lg ">Genres : </span>
                     <ng-container *ngFor="let list of data?.genres ">
-                        <a routerLink="/movies/genre/{{ list?.name }}/{{ list.id }} " class="px-3 mr-1 bg-neutral-700 text-xs py-0.5 hover:bg-neutral-800 text-white rounded-sm ">
+                        <a routerLink="/movies/genre/{{ list?.name }}/{{ list.id }} " class="px-3 mr-1 bg-neutral-700 text-xs py-0.5 hover:bg-neutral-800 text-zinc-950 dark:text-zinc-50 rounded-sm ">
                         {{ list?.name }}
                       </a>
                     </ng-container>
                 </div>
-                <div class=" text-xs text-gray-200 font-semibold "> <span class="text-red-500 font-semibold italic md:text-sm ">Overview : </span> {{ data?.overview }}
+                <div class=" text-xs text-zinc-950 dark:text-zinc-50 font-semibold "> <span class="text-red-500 font-semibold italic md:text-sm ">Overview : </span> {{ data?.overview }}
                 </div>
 
                 <div class=" text-xs mt-4 mb-2 shadow-sm ">
@@ -132,61 +135,61 @@
                 </div>
                 <div id="casts " *ngIf="selectedDetails=='cast' " class="space-y-1 text-xs ">
                     <ng-container *ngFor="let cast of casts ">
-                        <a routerLink="/movies/cast/{{ castNameSlug(cast.original_name) }}/{{ cast.id }} " class="inline-block px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{ cast.original_name }}</a>
+                        <a routerLink="/movies/cast/{{ castNameSlug(cast.original_name) }}/{{ cast.id }} " class="inline-block px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-zinc-50 dark:text-zinc-50 rounded-sm ">{{ cast.original_name }}</a>
                     </ng-container>
                 </div>
                 <div id="crew " *ngIf="selectedDetails=='crew' " class="space-y-1 ">
                     <div class="grid grid-cols-3 gap-4 text-xs ">
-                        <h5 *ngIf="directing.length " class=" overflow-hidden text-sm uppercase italic text-white ">Director<span class="ml-2 "><hr></span></h5>
+                        <h5 *ngIf="directing.length " class=" overflow-hidden text-sm uppercase italic text-zinc-50 dark:text-zinc-50 ">Director<span class="ml-2 "><hr></span></h5>
                         <div *ngIf="directing.length " class="col-span-2 ">
                             <div class="space-y-1 ">
                                 <ng-container *ngFor="let pers of directing ">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{ pers.original_name }}</button>
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-zinc-50 dark:text-zinc-50 rounded-sm ">{{ pers.original_name }}</button>
                                 </ng-container>
                             </div>
                         </div>
 
-                        <h5 *ngIf="production.length " class=" overflow-hidden text-sm uppercase italic text-white ">Producers<span class="ml-2 "><hr></span></h5>
+                        <h5 *ngIf="production.length " class=" overflow-hidden text-sm uppercase italic text-zinc-50 dark:text-zinc-50 ">Producers<span class="ml-2 "><hr></span></h5>
                         <div *ngIf="production.length " class="col-span-2 ">
                             <div class="space-y-1 ">
                                 <ng-container *ngFor="let pers of production ">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{ pers.original_name }}</button>
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-zinc-50 dark:text-zinc-50 rounded-sm ">{{ pers.original_name }}</button>
                                 </ng-container>
                             </div>
                         </div>
 
-                        <h5 *ngIf="writer.length " class=" overflow-hidden text-sm uppercase italic text-white ">Writers<span class="ml-2 "><hr></span></h5>
+                        <h5 *ngIf="writer.length " class=" overflow-hidden text-sm uppercase italic text-zinc-50 dark:text-zinc-50 ">Writers<span class="ml-2 "><hr></span></h5>
                         <div *ngIf="writer.length " class="col-span-2 ">
                             <div class="space-y-1 ">
                                 <ng-container *ngFor="let pers of writer ">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{ pers.original_name }}</button>
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-zinc-50 dark:text-zinc-50 rounded-sm ">{{ pers.original_name }}</button>
                                 </ng-container>
                             </div>
                         </div>
 
-                        <h5 *ngIf="camera.length " class=" overflow-hidden text-sm uppercase italic text-white ">Cinematography<span class="ml-2 "><hr></span></h5>
+                        <h5 *ngIf="camera.length " class=" overflow-hidden text-sm uppercase italic text-zinc-50 dark:text-zinc-50 ">Cinematography<span class="ml-2 "><hr></span></h5>
                         <div *ngIf="camera.length " class="col-span-2 ">
                             <div class="space-y-1 ">
                                 <ng-container *ngFor="let pers of camera ">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{ pers.original_name }}</button>
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-zinc-50 dark:text-zinc-50 rounded-sm ">{{ pers.original_name }}</button>
                                 </ng-container>
                             </div>
                         </div>
 
-                        <h5 *ngIf="sound.length " class=" overflow-hidden text-sm uppercase italic text-white ">sound<span class="ml-2 "><hr></span></h5>
+                        <h5 *ngIf="sound.length " class=" overflow-hidden text-sm uppercase italic text-zinc-50 dark:text-zinc-50 ">sound<span class="ml-2 "><hr></span></h5>
                         <div *ngIf="sound.length " class="col-span-2 ">
                             <div class="space-y-1 ">
                                 <ng-container *ngFor="let pers of sound ">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{ pers.original_name }}</button>
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-zinc-50 dark:text-zinc-50 rounded-sm ">{{ pers.original_name }}</button>
                                 </ng-container>
                             </div>
                         </div>
 
-                        <h5 *ngIf="makeUp.length " class=" overflow-hidden text-sm uppercase italic text-white ">MakeUp<span class="ml-2 "><hr></span></h5>
+                        <h5 *ngIf="makeUp.length " class=" overflow-hidden text-sm uppercase italic text-zinc-50 dark:text-zinc-50 ">MakeUp<span class="ml-2 "><hr></span></h5>
                         <div *ngIf="makeUp.length " class="col-span-2 ">
                             <div class="space-y-1 ">
                                 <ng-container *ngFor="let pers of makeUp ">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{ pers.original_name }}</button>
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-zinc-50 dark:text-zinc-50 rounded-sm ">{{ pers.original_name }}</button>
                                 </ng-container>
                             </div>
                         </div>
@@ -194,38 +197,38 @@
                 </div>
                 <div id="details " *ngIf="selectedDetails=='details' " class="space-y-1 ">
                     <div class="grid grid-cols-3 gap-4 text-xs ">
-                        <h5 class=" overflow-hidden text-sm uppercase italic text-white ">STUDIO<span class=" ml-2 "><hr></span></h5>
+                        <h5 class=" overflow-hidden text-sm uppercase italic text-zinc-50 dark:text-zinc-50 ">STUDIO<span class=" ml-2 "><hr></span></h5>
 
                         <div class=" col-span-2 ">
                             <div class="space-y-1 ">
                                 <ng-container *ngFor="let list of data?.production_companies ">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{  list?.name }}</button>
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-zinc-50 dark:text-zinc-50 rounded-sm ">{{  list?.name }}</button>
                                 </ng-container>
                             </div>
                         </div>
 
 
-                        <h5 class=" overflow-hidden text-sm uppercase italic text-white ">Country<span class="ml-2 "><hr></span></h5>
+                        <h5 class=" overflow-hidden text-sm uppercase italic text-zinc-50 dark:text-zinc-50 ">Country<span class="ml-2 "><hr></span></h5>
                         <div class=" col-span-2 ">
                             <div class="space-y-1 ">
                                 <ng-container *ngFor="let list of data?.production_countries ">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{  list.iso_3166_1 }}</button>
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-zinc-50 dark:text-zinc-50 rounded-sm ">{{  list.iso_3166_1 }}</button>
                                 </ng-container>
                             </div>
                         </div>
 
-                        <h5 class=" overflow-hidden text-sm uppercase italic text-white ">Original<span class="ml-2 ">Language <hr></span></h5>
+                        <h5 class=" overflow-hidden text-sm uppercase italic text-zinc-50 dark:text-zinc-50 ">Original<span class="ml-2 ">Language <hr></span></h5>
                         <div class=" col-span-2 ">
                             <div class="space-y-1 ">
-                                <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white uppercase rounded-sm ">{{  data.original_language }}</button>
+                                <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-zinc-50 dark:text-zinc-50 uppercase rounded-sm ">{{  data.original_language }}</button>
                             </div>
                         </div>
 
-                        <h5 class=" overflow-hidden text-sm uppercase italic text-white ">Spoken<span class="ml-2 ">Languages <hr></span></h5>
+                        <h5 class=" overflow-hidden text-sm uppercase italic text-zinc-50 dark:text-zinc-50 ">Spoken<span class="ml-2 ">Languages <hr></span></h5>
                         <div class=" col-span-2 ">
                             <div class="space-y-1 ">
                                 <ng-container *ngFor="let list of data?.spoken_languages ">
-                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">{{  list.english_name }}</button>
+                                    <button class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-zinc-50 dark:text-zinc-50 rounded-sm ">{{  list.english_name }}</button>
                                 </ng-container>
                             </div>
                         </div>
@@ -233,29 +236,29 @@
                 </div>
                 <div id="images " *ngIf="selectedDetails=='images' " class="space-y-1 ">
                     <div class="grid grid-cols-3 gap-4 text-xs ">
-                        <h5 class=" overflow-hidden text-sm uppercase italic text-white ">POSTERS<span class=" ml-2 "><hr></span></h5>
+                        <h5 class=" overflow-hidden text-sm uppercase italic text-zinc-50 dark:text-zinc-50 ">POSTERS<span class=" ml-2 "><hr></span></h5>
 
                         <div class=" col-span-2 ">
                             <div class="space-y-1 ">
-                                <button (click)="getMovieImages( 'posters') " class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">POSTERS</button>
+                                <button (click)="getMovieImages( 'posters') " class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-zinc-50 dark:text-zinc-50 rounded-sm ">POSTERS</button>
                             </div>
                         </div>
 
                     </div>
 
                     <div class="grid grid-cols-3 gap-4 text-xs ">
-                        <h5 class=" overflow-hidden text-sm uppercase italic text-white ">BACKDROPS<span class=" ml-2 "><hr></span></h5>
+                        <h5 class=" overflow-hidden text-sm uppercase italic text-zinc-50 dark:text-zinc-50 ">BACKDROPS<span class=" ml-2 "><hr></span></h5>
 
                         <div class=" col-span-2 ">
                             <div class="space-y-1 ">
-                                <button (click)="getMovieImages( 'backdrops') " class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-white rounded-sm ">BACKDROPS</button>
+                                <button (click)="getMovieImages( 'backdrops') " class="px-3 py-1 mr-1 bg-neutral-700 hover:bg-neutral-800 text-zinc-50 dark:text-zinc-50 rounded-sm ">BACKDROPS</button>
                             </div>
                         </div>
 
                     </div>
                 </div>
             </div>
-            <div *ngIf="similarMovies.length " class="border-b border-red-500 text-white py-1 ml-2 mt-6 ">
+            <div *ngIf="similarMovies.length " class="border-b border-red-500 text-zinc-950 dark:text-zinc-50 py-1 ml-2 mt-6 ">
                 <span class="uppercase ">Similar MOVIES</span>
                 <span class="uppercase float-right underline hover:text-red-500 "><a routerLink="/movies/similare/{{ castNameSlug(data.original_title) }}/{{ data.id }} ">SHOW ALL</a></span>
             </div>
