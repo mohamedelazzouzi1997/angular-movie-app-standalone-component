@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MoviesService } from 'src/app/services/movies.service';
 import { ListingComponent } from 'src/app/components/listing/listing.component';
+import * as _ from 'lodash'
 
 @Component({
   selector: 'app-similare',
@@ -14,6 +15,7 @@ import { ListingComponent } from 'src/app/components/listing/listing.component';
 export class SimilareComponent {
   @Input({ required: true }) id: any
   @Input({ required: true }) movie: any
+  order: boolean = true
 
   data: any = [];
   totalGenraMovie: number = 0
@@ -31,7 +33,11 @@ export class SimilareComponent {
   ngOnInit() {
     this.getSimilareMovies(this.page);
   }
-
+  sort(buttonClicked: boolean = false) {
+    if (buttonClicked)
+      this.order = !this.order
+    this.data = _.orderBy(this.data, ['vote_average'], this.order ? ['asc'] : ['desc'])
+  }
   getSimilareMovies(page: number) {
     this.page = page;
 
@@ -40,6 +46,8 @@ export class SimilareComponent {
         this.data = res.results;
         this.paginationLength = res.total_pages;
         this.totalGenraMovie = this.paginationLength * this.data.length
+        // this.sort()
+
       },
       error: (err) => {
         console.log('err', err);

@@ -16,7 +16,7 @@ export class UpComingComponent {
   data: any = [];
 
   page: number = 1;
-  order: boolean = false
+  order: boolean = true
 
   paginationLength: any;
 
@@ -42,7 +42,7 @@ export class UpComingComponent {
       next: (res) => {
         this.data = res.results;
         this.paginationLength = res.total_pages;
-        this.sort()
+        // this.sort()
 
       },
       error: (err) => {

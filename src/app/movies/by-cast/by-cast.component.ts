@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MoviesService } from 'src/app/services/movies.service';
 import { ListingComponent } from 'src/app/components/listing/listing.component';
+import * as _ from 'lodash'
 
 @Component({
   selector: 'app-by-cast',
@@ -12,6 +13,7 @@ import { ListingComponent } from 'src/app/components/listing/listing.component';
 })
 export class ByCastComponent {
   @Input({ required: true }) castId: any
+  order: boolean = true
 
   data: any = [];
   castDetails: any
@@ -26,11 +28,16 @@ export class ByCastComponent {
     this.getMoviesByCastId();
     this.getCastDetailsById()
   }
-
+  sort(buttonClicked: boolean = false) {
+    if (buttonClicked)
+      this.order = !this.order
+    this.data = _.orderBy(this.data, ['vote_average'], this.order ? ['asc'] : ['desc'])
+  }
   getCastDetailsById() {
     this.movieService.getCastDetailsById(this.castId).subscribe({
       next: (res) => {
         this.castDetails = res;
+        // this.sort()
 
       },
       error: (err) => {

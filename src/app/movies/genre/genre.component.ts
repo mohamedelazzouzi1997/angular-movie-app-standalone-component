@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MoviesService } from 'src/app/services/movies.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ListingComponent } from 'src/app/components/listing/listing.component';
+import * as _ from 'lodash'
 
 @Component({
   selector: 'app-genre',
@@ -15,6 +16,7 @@ export class GenreComponent {
 
   @Input({ required: true }) id: any
   @Input({ required: true }) genre: any
+  order: boolean = true
 
   data: any = [];
   totalGenraMovie: number = 0
@@ -33,6 +35,11 @@ export class GenreComponent {
     this.getMoviesGenraList(this.page);
   }
 
+  sort(buttonClicked: boolean = false) {
+    if (buttonClicked)
+      this.order = !this.order
+    this.data = _.orderBy(this.data, ['vote_average'], this.order ? ['asc'] : ['desc'])
+  }
   getMoviesGenraList(page: number) {
     this.page = page;
 
@@ -41,6 +48,7 @@ export class GenreComponent {
         this.data = res.results;
         this.paginationLength = res.total_pages;
         this.totalGenraMovie = this.paginationLength * this.data.length
+        // this.sort()
       },
       error: (err) => {
         console.log('err', err);

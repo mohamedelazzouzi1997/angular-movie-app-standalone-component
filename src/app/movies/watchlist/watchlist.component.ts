@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from 'src/app/services/user.service';
-import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ListingComponent } from 'src/app/components/listing/listing.component';
 
 @Component({
@@ -19,8 +18,6 @@ export class WatchlistComponent {
   paginationLength: any;
 
   constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
     private userService: UserService
   ) { }
 

@@ -16,7 +16,7 @@ export class PopularComponent {
   data: any = [];
   page: number = 1;
   paginationLength: any;
-  order: boolean = false
+  order: boolean = true
 
   constructor(
     private movieService: MoviesService,
@@ -39,7 +39,7 @@ export class PopularComponent {
       next: (res) => {
         this.data = res.results;
         this.paginationLength = res.total_pages;
-        this.sort()
+        // this.sort()
 
       },
       error: (err) => {

@@ -13,7 +13,7 @@ import * as _ from 'lodash'
 })
 export class MoviesListComponent {
   data: any = [];
-  order: boolean = false
+  order: boolean = true
   page: number = 1;
   paginationLength: any;
   constructor(
@@ -39,7 +39,7 @@ export class MoviesListComponent {
       next: (res) => {
         this.data = res.results;
         this.paginationLength = res.total_pages;
-        this.sort()
+        // this.sort()
       },
       error: (err) => {
         console.log('err', err);
