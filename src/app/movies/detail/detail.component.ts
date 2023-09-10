@@ -12,6 +12,7 @@ import { ModalVideosComponent } from '../modal-videos/modal-videos.component';
 import { ListingComponent } from 'src/app/components/listing/listing.component';
 import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -52,15 +53,18 @@ export class DetailComponent {
   isSessionExist: any
   movieStatus: any
   movieIds: any = []
+  private subscription: Subscription;
   constructor(
     private movieService: MoviesService,
-    private router: Router,
     private AuthService: AuthService,
     private dialog: MatDialog,
     private userService: UserService,
     private _toastr: ToastrService,
     private cookieService: CookieService) {
-
+    this.subscription = this.userService.triggerFunction.subscribe((movieId: any) => {
+      this.movieId = movieId
+      this.ngOnInit();
+    });
   }
   @Input('id') movieId!: number;
 
@@ -78,7 +82,9 @@ export class DetailComponent {
     }
 
   }
-
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
   removeRating() {
     this.movieService.removeRateMovie(this.movieId).subscribe({
       next: (res) => {

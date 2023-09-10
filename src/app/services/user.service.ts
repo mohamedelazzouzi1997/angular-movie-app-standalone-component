@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -21,6 +21,12 @@ export class UserService {
     this.session_id = this.cookieService.get('TMDB-session-id')
   }
 
+
+  triggerFunction = new Subject<void>();
+
+  triggerComponentFunction(movieId: any) {
+    this.triggerFunction.next(movieId);
+  }
 
   setUserInfo(user: any): void {
     this.userInfoSubject$.next(user);
@@ -61,4 +67,6 @@ export class UserService {
     };
     return this.http.get(url, options);
   }
+
+
 }

@@ -7,7 +7,7 @@
         <div class="mt-3 grid grid-rows-4 gap-y-2 text-zinc-800 text-xs">
             <ng-container *ngFor="let item of popularData">
                 <div class="grid grid-cols-5 gap-3">
-                    <a routerLink="/movies/movie/{{ item.id }}" class="col-span-2">
+                    <a (click)="triggerComponentBFunction( item.id)" class="col-span-2 hover:cursor-pointer">
                         <img [src]="imageUrlPoster + item.poster_path" class="w-full hover:scale-105 duration-200 ease-linear h-full rounded-md" alt="">
                     </a>
                     <div class="flex flex-col justify-between col-span-3">
@@ -37,7 +37,7 @@
         <div class="mt-3 grid grid-rows-4 gap-y-2 text-zinc-800 text-xs">
             <ng-container *ngFor="let item of newestData">
                 <div class="grid grid-cols-5 gap-3">
-                    <a routerLink="/movies/movie/{{ item.id }}" class="col-span-2">
+                    <a (click)="triggerComponentBFunction( item.id)" class="col-span-2 hover:cursor-pointer">
                         <img [src]="imageUrlPoster + item.poster_path" class="w-full hover:scale-105 duration-200 ease-linear h-full rounded-md" alt="">
                     </a>
                     <div class="flex flex-col justify-between col-span-3">

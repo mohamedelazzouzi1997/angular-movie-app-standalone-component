@@ -1,6 +1,8 @@
+import { UserService } from 'src/app/services/user.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MoviesService } from 'src/app/services/movies.service';
+import { Router } from '@angular/router';
 import * as _ from "lodash";
 import { RouterLink } from '@angular/router';
 @Component({
@@ -40,6 +42,8 @@ export class RightSideBarComponent {
   ]
   constructor(
     private movieService: MoviesService,
+    private UserService: UserService,
+    private router: Router,
     private cdr: ChangeDetectorRef
   ) { }
   ngOnInit() {
@@ -50,14 +54,16 @@ export class RightSideBarComponent {
       this.newestData = _.sampleSize(this.newestResult, 4)
     }, 5000);
   }
-
+  triggerComponentBFunction(movieId: any) {
+    this.UserService.triggerComponentFunction(movieId);
+    this.router.navigate(['/movies/movie/' + movieId]);
+  }
   getNewest() {
 
     this.movieService.getMovieLists().subscribe({
       next: (res) => {
         this.newestResult = res.results
-        this.newestData = _.sampleSize(res.results, 4)
-
+        this.newestData = _.sampleSize(this.newestResult, 4)
       },
       error: (err) => {
         console.log('err', err);
@@ -71,8 +77,7 @@ export class RightSideBarComponent {
     this.movieService.getPopular().subscribe({
       next: (res) => {
         this.result = res.results
-        this.popularData = _.sampleSize(res.results, 4)
-
+        this.popularData = _.sampleSize(this.result, 4)
       },
       error: (err) => {
         console.log('err', err);
@@ -87,6 +92,6 @@ export class RightSideBarComponent {
       const genreId = Number(_.keys(genre)[0]);
       return _.includes(genreIdsToSelect, genreId);
     }).map((genre) => _.values(genre)[0]);
-    return _.sampleSize(selectedGenres, 3)
+    return _.take(selectedGenres, 3).sort()
   }
 }
