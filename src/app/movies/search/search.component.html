@@ -22,7 +22,7 @@
             </div>
         </ng-container>
     </div>
-    <nav class="mt-6 flex justify-between">
+    <nav *ngIf="data.length > 0" class="mt-6 flex justify-between">
 
         <button [disabled]="page == 1" (click)="previousList(page - 1)" class=" bg-neutral-700 text-zinc-50 hover:bg-neutral-950 dark:hover:bg-neutral-100 hover:text-neutral-700 px-3 py-1 rounded-sm" [ngClass]="{
             ' text-zinc-400  ':
